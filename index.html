@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cacophony Demo</title>
+<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+<script type="text/javascript" src="build/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="build/jquery-ui-1.8.6.custom.min.js"></script>
+<script type="text/javascript" src="build/cacophony.min.js"></script>
+<script type="text/javascript" src="js/settings.js"></script>
+<script type="text/javascript" src="js/story.js"></script>
+<link rel="stylesheet" type="text/css" href="build/cacophony.min.css" />
+</head>
+<body>
+<script type="text/javascript">
+$(document).ready (function () {
+	cacophony.init ();
+	cacophony.play();
+});
+
+cacophony.callback.play = function () {
+	$('#scrubber').slider ({
+		max: cacophony.duration,
+		stop: function (event, ui) {
+			cacophony.jumpToTime (ui.value, true);
+		}
+	});
+}
+
+cacophony.callback.ready = function () {
+	console.log("cacophony ready");
+}
+
+cacophony.callback.timeupdate = function (time) {
+	$('#scrubber').slider ('option', 'value', time);
+}
+
+function setCurTime(){
+cacophony.jumpToTime(30);
+console.log("set Time 30");
+}
+
+</script>
+<style type="text/css">
+#scrubber {
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 854px;
+}
+</style>
+<div id="cacophony"></div>
+<div id="scrubber"></div>
+<button onclick="setCurTime()" type="button">Set time position to 30 seconds</button>
+</body>
+</html>

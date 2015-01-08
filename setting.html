@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html > 
+<head> 
+<title>cacophony settings</title> 
+<script type="text/javascript" src="build/jquery-1.4.2.min.js"></script>
+</head> 
+<script language="javascript"> 
+function submitButton(){
+	var inputTable=document.getElementById("inputTable");
+	var _len=inputTable.rows.length-1;
+	var tableData={};
+	var rows=[];
+	for(var i=0;i<_len;i++){
+		if(inputTable.rows[i+1].cells[1].innerHTML=="text"){
+		rows.push({"id":i,"time":$("input[id='time"+i+"']").val(),"msg":$("input[id='msg"+i+"']").val(),"jumpTo":$("input[id='jumpTo"+i+"']").val()});
+		}
+	}
+	tableData.rows=rows;
+	var json=JSON.stringify(tableData);
+	console.log(tableData);
+	$.ajax({
+		url: "js/settings.php",
+		dataType:'JSON',
+		type:"POST",
+		data:{tabledata:json,type:"inputText"},
+		success:function(data){	
+		console.log(data);
+		}
+	});
+}
+function submitQCM(){
+	var optionsTable=document.getElementById("optionsTable");
+	var _len=optionsTable.rows.length-1;
+	var tableData={};
+	var rows=[];
+	var options=[];
+	rows.push({"id":0,"time":$("input[id='time"+0+"']").val(),"msg":$("input[id='msg"+0+"']").val()});
+	for(var i=0;i<_len;i++){
+		options.push({"option":$("input[id='option"+i+"']").val(),"jumpTo":$("input[id='jumpTo"+i+"']").val()});
+	}
+	tableData.rows=rows;
+	tableData.options=options;
+	var json=JSON.stringify(tableData);
+	console.log(tableData);
+	$.ajax({
+		url: "js/settings.php",
+		dataType:'JSON',
+		type:"POST",
+		data:{tabledata:json,type:"QCM"},
+		success:function(data){	
+		console.log(data);
+		}
+	});
+}
+
+function AddInputText(){ 
+ var _len=document.getElementById("inputTable").rows.length-1;
+  $("#inputTable").append("<tr id="+_len+"  align='center'>"
+                                +"<td><input type='checkbox' /></td>"
+                                +"<td><input type='text' name='time"+_len+"' id='time"+_len+"' size='5'/></td>"
+								+"<td><input type='text' name='jumpTo"+_len+"' id='jumpTo"+_len+"' size='5' /></td>"
+								+"<td><input type='text' name='msg"+_len+"' id='msg"+_len+"' /></td>"							
+						+"</tr>");     
+ 
+} 
+function AddOption(){ 
+ var _len=document.getElementById("optionsTable").rows.length-1;
+  $("#optionsTable").append("<tr align='center'>"
+                                +"<td></td>"
+								+"<td></td>"
+                                +"<td></td>"
+								+"<td><input type='text' name='option"+_len+"' id='option"+_len+"' /></td>"				
+								+"<td><input type='text' name='jumpTo"+_len+"' id='jumpTo"+_len+"' size='5' /></td>"								
+						+"</tr>");     
+ 
+} 
+
+function AddQCM(){ 
+ var _len=document.getElementById("optionsTable").rows.length-1;
+  $("#optionsTable").append("<tr id="+_len+"  align='center'>"
+                                +"<td><input type='checkbox' /></td>"
+								+"<td><input type='text' name='time"+_len+"' id='time"+_len+"' size='5'/></td>"
+                                +"<td><input type='text' name='msg"+_len+"' id='msg"+_len+"' /></td>"
+								+"<td><input type='text' name='option"+_len+"' id='option"+_len+"' /></td>"				
+								+"<td><input type='text' name='jumpTo"+_len+"' id='jumpTo"+_len+"' size='5' /></td>"								
+						+"</tr>");     
+} 
+</script> 
+<body> 
+ <form action="" method="post" name="frm"> 
+ <table id="inputTable"> 
+	<tr>
+		<th></th>
+		<th>time</th>
+		<th>jump to</th>
+		<th>message</th>
+	</tr>
+</table> 
+<p>
+ </form> 
+ <input type="button" onclick="submitButton()" value="Submit"/>
+ <p>
+ <input name="" type="button" value="add input-text" onClick="AddInputText()" /> 
+  <form action="" method="post" name="frm"> 
+ <table id="optionsTable"> 
+	<tr>
+		<th></th>
+		<th>time</th>
+		<th>message</th>
+		<th>option</th>
+		<th>jump to</th>
+	</tr>
+</table> 
+<p>
+ </form>
+ <input type="button" onclick="submitQCM()" value="Submit"/>
+ <input name="" type="button" value="add QCM" onClick="AddQCM()" /> 
+  <input name="" type="button" value="add option" onClick="AddOption()" /> 
+</body> 
+</html>

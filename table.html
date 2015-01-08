@@ -1,0 +1,101 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>test</title>
+    
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">    
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="This is my page">
+
+    <style type="text/css">    
+        .right{
+            margin:0% 10%;
+            width:600px;
+        }
+        .right table{
+            background:white;
+            width:100%;
+            border:1px solid #499B33;
+        }
+        .right td{
+            background:blue;
+            text-align:center;
+            padding:2px;
+            border:1px solid #499B33;
+        }
+        .right td{
+            background:#8FBC8F;
+        }        
+        .item{
+            text-align:center;            
+            width:100px;
+        }
+        .assigned{
+            border:1px solid #BC2A4D;
+        }        
+    </style>
+<script>
+        function table() {
+            if (document.getElementById("Num").value == "" || document.getElementById("Num").value.search("^[0-9]*$") == -1) {
+                document.getElementById("errmsg1").style.display = "block";//判断payNum是否为空或不是数字    提示错误
+                document.getElementById("errmsg1").innerHTML = "提示信息：行数为空或不是数字！";
+            }
+            else {
+                document.getElementById("errmsg1").style.display = "none";//隐藏提示信息
+                var Num = parseInt(document.getElementById("Num").value); //获取分期数           
+                var flag = true;
+                var data = "";
+                data += " <table >";
+                data += " <tr>" +
+                            "<td >we are</td>" +
+                            "<td >zhuzhu</td>" +
+                            "<td >dudu</td>" +                            
+                        "</tr>" ;
+                for (var i = 1; i <= Num; i++) {                   
+                    data += "<tr >";
+                    data += "<td>" + i + "</td>";
+                    data += "<td><input name='ColdDay"+i+"' type='text' class='input'></td>";
+                    data += "<td><input name='ColdCureMethod"+i+"' type='text' class='input'></td>";                                  
+                    data += "</tr>";
+                }
+                
+                data += "</table>";
+                document.getElementById("div1").style.display = "block";
+                document.getElementById("table1").innerHTML = data;
+            }
+        } 
+</script>   
+
+  </head>
+  
+  <body>
+    <br>
+<div style="width:750px;">
+<div class="right">
+<table>
+    <tr>
+    <td>动态生成表格</td>
+    <td><input id="Num" type="text" class="input" size="10" name="Num"/>行</td>
+    </tr>
+</table>
+</br>  
+<input name="" type="button" value="生成" class="buttton" onclick="table()"/></br>  
+</br>  
+<div id="div1" style="display: none" mce_style="display: none">    
+    <div id="table1"></div>        
+</div>    
+<div id="errmsg1" class="formmsg"></div>
+</div>
+</div>
+  </body>
+</html>
