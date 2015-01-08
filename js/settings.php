@@ -27,18 +27,23 @@ if($type=="inputText"){
 	}
 	fclose ($fp);
 }else if($type=="QCM"){
-	$options=$tableData->options;
-	$nb=count($options);
-	$write="_s[".$rows[0]->time."]=[{a:'input_branching', d:{msg:\"";
-	$write.=$rows[0]->msg;
-	$write.="\",options:[";
-	$i=0;
-	while($i<$nb-1){
-		$write.="{choice:\"".$options[$i]->option."\",jump_to:".$options[$i]->jumpTo."},";
-		$i++;
+
+    foreach($rows as $row){
+		// pour tous les rows
+		$options=$row->options;
+		print_r($options);
+		$nb=count($options);
+		$write="_s[".$row->time."]=[{a:'input_branching', d:{msg:\"";
+		$write.=$row->msg;
+		$write.="\",options:[";
+		$i=0;
+		while($i<$nb-1){
+			$write.="{choice:\"".$options[$i]->option."\",jump_to:".$options[$i]->jumpTo."},";
+			$i++;
+		}
+		$write.="{choice:\"".$options[$i]->option."\",jump_to:".$options[$i]->jumpTo."}]}},{a:'pause'}];\n";
+		fwrite ($fp,$write);
 	}
-	$write.="{choice:\"".$options[$i]->option."\",jump_to:".$options[$i]->jumpTo."}]}},{a:'pause'}];\n";
-	fwrite ($fp,$write);
 	fclose ($fp);
 }
 ?>

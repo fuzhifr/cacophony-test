@@ -34,11 +34,6 @@ cacophony.callback.timeupdate = function (time) {
 	$('#scrubber').slider ('option', 'value', time);
 }
 
-function setCurTime(){
-cacophony.jumpToTime(30);
-console.log("set Time 30");
-}
-
 </script>
 <style type="text/css">
 #scrubber {
@@ -50,6 +45,5 @@ console.log("set Time 30");
 </style>
 <div id="cacophony"></div>
 <div id="scrubber"></div>
-<button onclick="setCurTime()" type="button">Set time position to 30 seconds</button>
 </body>
 </html>
