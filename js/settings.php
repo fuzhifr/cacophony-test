@@ -11,12 +11,10 @@ fclose ($fp);
 $fp = fopen ('story.js', 'a');
 fwrite ($fp, "\n");
 
-$tableData=json_decode($_POST["tabledata"]);
-$type=$_POST["type"];
-$rows=$tableData->rows;
+$inputText=json_decode($_POST["inputTextJson"]);
+$inputTextRows=$inputText->rows;
 
-if($type=="inputText"){
-	foreach($rows as $row){
+	foreach($inputTextRows as $row){
 	 $write="_s[".$row->time."]=[{a:'input_text', d:{msg:\"";
 	 $write.=$row->msg;
 	 $write.="\",thanks:\"Thanks for your input\",
@@ -25,10 +23,10 @@ if($type=="inputText"){
 		{a:'pause'}]; \n";
 	 fwrite ($fp,$write);
 	}
-	fclose ($fp);
-}else if($type=="QCM"){
 
-    foreach($rows as $row){
+$qcm=json_decode($_POST["qcmJson"]);
+$qcmRows=$qcm->rows;	
+    foreach($qcmRows as $row){
 		// pour tous les rows
 		$options=$row->options;
 		print_r($options);
@@ -45,5 +43,5 @@ if($type=="inputText"){
 		fwrite ($fp,$write);
 	}
 	fclose ($fp);
-}
+
 ?>

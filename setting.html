@@ -3,139 +3,42 @@
 <head> 
 <title>cacophony settings</title> 
 <script type="text/javascript" src="build/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/settingPage.js"></script>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 </head> 
-<script language="javascript"> 
-function submitButton(){
-	var inputTable=document.getElementById("inputTable");
-	var _len=inputTable.rows.length-1;
-	var tableData={};
-	var rows=[];
-	for(var i=0;i<_len;i++){
-		rows.push({"id":i,"time":$("input[id='time"+i+"']").val(),"msg":$("input[id='msg"+i+"']").val(),"jumpTo":$("input[id='jumpTo"+i+"']").val()});
-	}
-	tableData.rows=rows;
-	var json=JSON.stringify(tableData);
-	console.log(tableData);
-	$.ajax({
-		url: "js/settings.php",
-		dataType:'JSON',
-		type:"POST",
-		data:{tabledata:json,type:"inputText"},
-		success:function(data){	
-		console.log(data);
-		}
-	});
-}
-
-// submit le table QCM
-function submitQCM(){
-	var optionsTable=document.getElementById("optionsTable");
-	
-	var tableData={};
-	// rows pour tous les QCM
-	var rows=[];
-	// options pour un QCM
-	var options=[];
-	
-	// ajoute tous les QCM
-	for(var j=1; j<=nbQCM;j++){
-	var _len=$("tr.QCM"+j).length;
-	var options=[];
-		for(var i=1;i<=_len;i++){
-			options.push({"option":$("input[id='option"+j+i+"']").val(),"jumpTo":$("input[id='jumpTo"+j+i+"']").val()});
-		}
-		rows.push({"id":nbQCM,"time":$("input[id='time"+j+"']").val(),"msg":$("input[id='msg"+j+"']").val(),"options":options});
-	}
-	tableData.rows=rows;
-	var json=JSON.stringify(tableData);
-	console.log(tableData);
-	
-	// envoyer tous les datas a  settings.php
-	$.ajax({
-		url: "js/settings.php",
-		dataType:'JSON',
-		type:"POST",
-		data:{tabledata:json,type:"QCM"},
-		success:function(data){	
-		console.log(data);
-		}
-	});
-}
-
-function AddInputText(){ 
- var _len=document.getElementById("inputTable").rows.length-1;
-  $("#inputTable").append("<tr id="+_len+"  align='center'>"
-                                +"<td><input type='checkbox' /></td>"
-                                +"<td><input type='text' name='time"+_len+"' id='time"+_len+"' size='5'/></td>"
-								+"<td><input type='text' name='jumpTo"+_len+"' id='jumpTo"+_len+"' size='5' /></td>"
-								+"<td><input type='text' name='msg"+_len+"' id='msg"+_len+"' /></td>"							
-						+"</tr>");     
- 
-} 
-//nombre de QCM
-var nbQCM=0;
-//nombre de options par un QCM
-var nbOptions=0;
-//ajouter un option pour un QCM 
-function AddOption(){ 
-   nbOptions+=1;
-  $("#optionsTable").append("<tr class='QCM"+nbQCM+"' align='center'>"
-                                +"<td><input  type='checkbox' /></td>"
-								+"<td></td>"
-                                +"<td></td>"
-								+"<td><input type='text'  name='option"+nbQCM+nbOptions+"' id='option"+nbQCM+nbOptions+"' /></td>"				
-								+"<td><input type='text'  name='jumpTo"+nbQCM+nbOptions+"' id='jumpTo"+nbQCM+nbOptions+"' size='5' /></td>"									
-						+"</tr>");     
- 
-} 
-
-// ajouter un QCM
-function AddQCM(){ 
- nbQCM+=1;
- nbOptions=1;
-  $("#optionsTable").append("<tr class='QCM"+nbQCM+"' align='center'>"
-                                +"<td><input  type='checkbox' /></td>"
-								+"<td><input type='text'  name='time"+nbQCM+"' id='time"+nbQCM+"' size='5'/></td>"
-                                +"<td><input type='text'  name='msg"+nbQCM+"' id='msg"+nbQCM+"' /></td>"
-								+"<td><input type='text'  name='option"+nbQCM+nbOptions+"' id='option"+nbQCM+nbOptions+"' /></td>"				
-								+"<td><input type='text'  name='jumpTo"+nbQCM+nbOptions+"' id='jumpTo"+nbQCM+nbOptions+"' size='5' /></td>"								
-						+"</tr>");  
-  						
-} 
-</script> 
 <body> 
  <form action="" method="post" name="frm"> 
  <table id="inputTable"> 
 	<tr>
-		<th><input type='checkbox' /></th>
+		<th>*</th>
 		<th>time</th>
 		<th>jump to</th>
 		<th>message</th>
 	</tr>
 </table> 
 <p>
- </form> 
- <input type="button" onclick="submitButton()" value="Submit"/>
+<input name="" type="button" value="add input-text" onClick="AddInputText()" /> 
+<input name="" type="button" value="delete input-text" onClick="deleteInputText()" />
+<p>
+ Questionnaire a choix multiples
  <p>
- <input name="" type="button" value="add input-text" onClick="AddInputText()" /> 
-  <form action="" method="post" name="frm"> 
  <table id="optionsTable"> 
 	<tr>
-		<th><input type='checkbox' /></th>
+		<th>*</th>
 		<th>time</th>
 		<th>message</th>
 		<th>option</th>
 		<th>jump to</th>
 	</tr>
 </table> 
-<p>
  </form>
- <input type="button" onclick="submitQCM()" value="Submit"/>
  <p>
  <input name="" type="button" value="add QCM" onClick="AddQCM()" /> 
   <input name="" type="button" value="add option" onClick="AddOption()" /> 
-   <div id="video">
+  <input name="" type="button" value="delete option" onClick="deleteOption()" />
+<p>  
+<input type="button" onclick="submitForm()" value="Submit"/>
+<div id="video">
   <p> Ajouter une vidéo</p>
   <input type="text" name="videoPath" id="videoPath"/>
   <input type="submit" value="Submit" />
