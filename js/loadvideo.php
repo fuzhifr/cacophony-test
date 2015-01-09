@@ -1,8 +1,9 @@
 <?php
 
-$fp = fopen ('videopath.js', 'a');
+$fp = fopen ('videopath.js', 'w');
 $path=$_POST["inputPathTxt"];
-fwrite ($fp,$path);
+$write="var path=\"".$path."\";";
+fwrite ($fp,$write);
 fclose ($fp);
 
 
