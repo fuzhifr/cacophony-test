@@ -3,7 +3,7 @@
 // Note: This is a demo only. Don't store emails
 // in a text file like this on a real site!
 
-$fp = fopen ('story.js', 'w');
+$fp= fopen ('story.js', 'w');
 fwrite ($fp, "_s[0] = [
 	{a:'bg_fade_in'}];");
 fclose ($fp);
