@@ -5,7 +5,7 @@
 cacophony.setKey ('c');
 
 // Set the beats-per-minute.
-cacophony.setBPM (120);
+cacophony.setBPM (60);
 
 // Set the width and height of the video.
 cacophony.setSize (854, 480);
