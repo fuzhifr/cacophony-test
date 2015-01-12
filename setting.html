@@ -14,16 +14,41 @@
 
 <style>
 .content{
-    width:1400px;
+    width:100%;
     margin:0 auto;
 }
-.leftDiv1{
-    position:absolute;;
+.leftDiv1 {
+	/*border:1px solid #bbb;*/
+    position:absolute;
      
 }
+.leftDiv11 {
+	border:1px solid #bbb;
+	padding-left:10px;
+	padding-right:10px;
+    position: relative; top: 10px;
+     
+}
+.leftDiv12 {
+	border:1px solid #bbb;
+	padding-left:10px;
+	padding-right:10px;
+    position: relative; top: 10px;
+     
+}
+.leftDiv13 {
+	border:1px solid #bbb;
+	padding-left:10px;
+	padding-right:10px;
+    position: relative; top: 10px;
+     
+}
+.inputDiv {
+	position: relative; top: 10px
+}
 .rightDiv1{
-    margin-left:600px;
-	width:800px;
+    margin-left:41%;
+	width:58%;
 } 
 </style>   
 </head> 
@@ -31,6 +56,7 @@
 <div class="content">
 	<div class="leftDiv1">
 		 <form action="" method="post" name="frm"> 
+		 <div class="leftDiv11">
 		 <h3>Text</h3>
 		 <table id="textTable"> 
 			<tr>
@@ -42,6 +68,8 @@
 		<p>
 		<input name="" type="button" value="add text" onClick="AddText()" /> 
 		<input name="" type="button" value="delete text" onClick="deleteText()" />
+		</div>
+		<div class="leftDiv12">
 		 <h3>Input Text</h3>
 		 <table id="inputTable"> 
 			<tr>
@@ -55,6 +83,8 @@
 		<input name="" type="button" value="add input-text" onClick="AddInputText()" /> 
 		<input name="" type="button" value="delete input-text" onClick="deleteInputText()" />
 		<p>
+		</div>
+		<div class="leftDiv13">
 		<h3> Questionnaire a choix multiples</h3>
 		 <table id="optionsTable"> 
 			<tr>
@@ -72,7 +102,10 @@
 		 <input name="" type="button" value="add option" onClick="AddOption()" /> 
 		  
 		<p>  
+		</div>
+		<div class="inputDiv">
 		<input type="button" onclick="submitForm()" value="Submit"/>
+		</div>
 	</div>
 	
 	<div class="rightDiv1">
