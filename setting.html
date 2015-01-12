@@ -31,6 +31,18 @@
 <div class="content">
 	<div class="leftDiv1">
 		 <form action="" method="post" name="frm"> 
+		 <h3>Text</h3>
+		 <table id="textTable"> 
+			<tr>
+				<th>*</th>
+				<th>time</th>
+				<th>message</th>
+			</tr>
+		</table> 
+		<p>
+		<input name="" type="button" value="add text" onClick="AddText()" /> 
+		<input name="" type="button" value="delete text" onClick="deleteText()" />
+		 <h3>Input Text</h3>
 		 <table id="inputTable"> 
 			<tr>
 				<th>*</th>
@@ -43,8 +55,7 @@
 		<input name="" type="button" value="add input-text" onClick="AddInputText()" /> 
 		<input name="" type="button" value="delete input-text" onClick="deleteInputText()" />
 		<p>
-		 Questionnaire a choix multiples
-		 <p>
+		<h3> Questionnaire a choix multiples</h3>
 		 <table id="optionsTable"> 
 			<tr>
 				<th>*</th>
@@ -57,8 +68,9 @@
 		 </form>
 		 <p>
 		 <input name="" type="button" value="add QCM" onClick="AddQCM()" /> 
-		  <input name="" type="button" value="add option" onClick="AddOption()" /> 
-		  <input name="" type="button" value="delete option" onClick="deleteOption()" />
+		 <input name="" type="button" value="delete QCM" onClick="deleteOption()" />
+		 <input name="" type="button" value="add option" onClick="AddOption()" /> 
+		  
 		<p>  
 		<input type="button" onclick="submitForm()" value="Submit"/>
 	</div>

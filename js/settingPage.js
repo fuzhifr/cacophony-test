@@ -2,18 +2,43 @@
 // function submit les datas
 function submitForm(){
 
-	var inputTextData={};
-	var rows=[];
+	var textData=getText();
+	var textJson=JSON.stringify(textData);
+	console.log(textJson);
 	
-	var inputTable=$("tr.inputText");
-	$(inputTable).each(function(){
-		var i=$(this).attr("id");
-		rows.push({"id":i,"time":$("input[id='time"+i+"']").val(),"msg":$("input[id='msg"+i+"']").val(),"jumpTo":$("input[id='jumpTo"+i+"']").val()});
-	});
-	inputTextData.rows=rows;
+	var inputTextData=getInputText();
 	var inputTextJson=JSON.stringify(inputTextData);
 	console.log(inputTextJson);
-
+	
+	var qcmData=getQCM();
+	var qcmJson=JSON.stringify(qcmData);
+	console.log(qcmJson);
+	
+	// envoyer tous les datas a  settings.php
+	$.ajax({
+		url: "js/settings.php",
+		dataType:'JSON',
+		type:"POST",
+		data:{qcmJson:qcmJson,inputTextJson:inputTextJson,textJson:textJson},
+		success:function(data){	
+		console.log(data);
+		}
+	});
+}
+function getText(){
+	var textData={};
+	var rows=[];
+	
+	var textTable=$("tr.text");
+	$(textTable).each(function(){
+		var i=$(this).attr("id");
+		rows.push({"id":i,"time":$("input[id='timeText"+i+"']").val(),"msg":$("input[id='msgText"+i+"']").val()});
+	});
+	textData.rows=rows;
+	return textData;
+}
+// get QCM table data
+function getQCM(){
 // recupere data de QCM ------------
 	var qcmData={};
 	// rows pour tous les QCM
@@ -31,21 +56,54 @@ function submitForm(){
 		rows.push({"id":arrayQCM[j],"time":$("input[id='time"+arrayQCM[j]+"']").val(),"msg":$("input[id='msg"+arrayQCM[j]+"']").val(),"options":options});
 	}
 	qcmData.rows=rows;
-	var qcmJson=JSON.stringify(qcmData);
-	console.log(qcmJson);
-	
-	// envoyer tous les datas a  settings.php
-	$.ajax({
-		url: "js/settings.php",
-		dataType:'JSON',
-		type:"POST",
-		data:{qcmJson:qcmJson,inputTextJson:inputTextJson},
-		success:function(data){	
-		console.log(data);
-		}
-	});
+	return qcmData;
 }
 
+// get Input Text Table data
+function getInputText(){
+	var inputTextData={};
+	var rows=[];
+	
+	var inputTable=$("tr.inputText");
+	$(inputTable).each(function(){
+		var i=$(this).attr("id");
+		rows.push({"id":i,"time":$("input[id='time"+i+"']").val(),"msg":$("input[id='msg"+i+"']").val(),"jumpTo":$("input[id='jumpTo"+i+"']").val()});
+	});
+	inputTextData.rows=rows;
+	return inputTextData;
+}
+
+//nombre de Question
+var nbQCM=0;
+//nombre de options par un QCM
+var nbOptions=0;
+// noter les qcm
+var arrayQCM=[];
+//numero inputText
+var nInputText=0;
+//numero Text
+var nText=0;
+
+//ajouter un text
+function AddText(){
+	nText+=1;
+  $("#textTable").append("<tr id="+nText+" class='text' align='center'>"
+                                +"<td><input type='checkbox' name='text'/></td>"
+                                +"<td><input type='text' name='timeText"+nText+"' id='timeText"+nText+"' size='5'/></td>"
+								+"<td><input type='text' name='msgText"+nText+"' id='msgText"+nText+"' /></td>"	
+						+"</tr>");  
+}
+
+//delete un text
+function deleteText(){ 
+	var checked = $("input[type='checkbox'][name='text']"); 
+	$(checked).each(function(){ 
+		if($(this).attr("checked")==true)
+		{ 
+			$(this).parent().parent().remove(); 
+		} 
+	}); 
+} 
 // ajouter un input text
 function AddInputText(){ 
 	nInputText+=1;
@@ -55,7 +113,6 @@ function AddInputText(){
 								+"<td><input type='text' name='jumpTo"+nInputText+"' id='jumpTo"+nInputText+"' size='5' /></td>"
 								+"<td><input type='text' name='msg"+nInputText+"' id='msg"+nInputText+"' /></td>"							
 						+"</tr>");     
- 
 } 
 
 function deleteInputText(){ 
@@ -67,14 +124,7 @@ function deleteInputText(){
 		} 
 	}); 
 } 
-//nombre de Question
-var nbQCM=0;
-//nombre de options par un QCM
-var nbOptions=0;
-// noter les qcm
-var arrayQCM=[];
-//numero inputText
-var nInputText=0;
+
 //ajouter un option pour un QCM 
 function AddOption(){ 
    nbOptions+=1;

@@ -11,8 +11,31 @@ fclose ($fp);
 $fp = fopen ('story.js', 'a');
 fwrite ($fp, "\n");
 
+$text=json_decode($_POST["textJson"]);
+writeText($text,$fp);
+
 $inputText=json_decode($_POST["inputTextJson"]);
-$inputTextRows=$inputText->rows;
+writeInputText($inputText,$fp);
+
+$qcm=json_decode($_POST["qcmJson"]);
+writeQCM($qcm,$fp);
+
+fclose ($fp);
+
+function writeText($text,$fp){
+	$textRows=$text->rows;
+
+	foreach($textRows as $row){
+	 $write="_s[".$row->time."]=[{a:'lyrics', d:{txt:\"";
+	 $write.=$row->msg."\",x: 100, y: 100,
+	 colour:'rgba(0, 0, 0, 1)' }}];\n";
+	 fwrite ($fp,$write);
+	}
+}
+
+function writeInputText($inputText,$fp){
+	
+	$inputTextRows=$inputText->rows;
 
 	foreach($inputTextRows as $row){
 	 $write="_s[".$row->time."]=[{a:'input_text', d:{msg:\"";
@@ -23,8 +46,10 @@ $inputTextRows=$inputText->rows;
 		{a:'pause'}]; \n";
 	 fwrite ($fp,$write);
 	}
+}
 
-$qcm=json_decode($_POST["qcmJson"]);
+function writeQCM($qcm,$fp){
+	
 $qcmRows=$qcm->rows;	
     foreach($qcmRows as $row){
 		// pour tous les rows
@@ -42,6 +67,5 @@ $qcmRows=$qcm->rows;
 		$write.="{choice:\"".$options[$i]->option."\",jump_to:".$options[$i]->jumpTo."}]}},{a:'pause'}];\n";
 		fwrite ($fp,$write);
 	}
-	fclose ($fp);
-
+}
 ?>
