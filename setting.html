@@ -10,29 +10,6 @@
 
 <script>
     videojs.options.flash.swf = "js/video-js.swf";
-	function GetRequest() {
-	   var url = location.search; //获取url中"?"符后的字串
-	   var theRequest = new Object();
-	   if (url.indexOf("?") != -1) {
-		  var str = url.substr(1);
-		  strs = str.split("&");
-		  for(var i = 0; i < strs.length; i ++) {
-			 theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
-		  }
-	   }
-	   return theRequest;
-	}
-	
-	var Request = new Object();
-	Request = GetRequest();
-	var filename=Request['filename'];
-	var realname=filename.substring(0,filename.lastIndexOf("."));  
-	var sourceMp4="server/php/files/"+realname+".mp4";
-	var sourceWebm="server/php/files/"+realname+".webm";
-	var sourceOgv="server/php/files/"+realname+".ogv";
-	$("#sourceWebm").attr("src",sourceWebm);
-	$("#sourceOgv").attr("src",sourceOgv);
-	alert(sourceMp4+" "+sourceWebm+" "+sourceOgv);
 </script>
 
 <style>
@@ -134,9 +111,9 @@
 	<div class="rightDiv1">
 	  <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="800" height="400"
 		  data-setup="{}">
-		<source id="sourceMp4" src="" type='video/mp4' />
-		<source id="sourceWebm" src="" type='video/webm' />
-		<source id="sourceOgv" src="" type='video/ogg' />
+		<source src="video/sodagreen.mp4" type='video/mp4' />
+		<source src="video/sodagreen.webm" type='video/webm' />
+		<source src="video/sodagreen.ogv" type='video/ogg' />
 		<track kind="captions" src="css/demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
 		<track kind="subtitles" src="css/demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
 		<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
