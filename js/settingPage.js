@@ -13,7 +13,6 @@ function submitForm(){
 	var qcmData=getQCM();
 	var qcmJson=JSON.stringify(qcmData);
 	console.log(qcmJson);
-	
 	// envoyer tous les datas a  settings.php
 	$.ajax({
 		url: "js/settings.php",
@@ -22,7 +21,8 @@ function submitForm(){
 		data:{qcmJson:qcmJson,inputTextJson:inputTextJson,textJson:textJson,realname:realname},
 		success:function(data){	
 		console.log(data);
-		window.location.href="view.html?realname="+realname;
+		window.location.href="view.html?realname="+encodeURIComponent(realname2);
+		
 		
 		}
 	});

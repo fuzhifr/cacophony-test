@@ -27,6 +27,7 @@
 	Request = GetRequest();
 	var filename=Request['filename'];
 	var realname=filename.substring(0,filename.lastIndexOf("."));	
+	var realname2=encodeURIComponent(realname);
 	
 $(document).ready(function(){
 	  

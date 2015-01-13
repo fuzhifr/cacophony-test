@@ -28,7 +28,7 @@ function GetRequest() {
 
 	var Request = new Object();
 	Request = GetRequest();
-	var realname=Request['realname'];
+	var realname=decodeURIComponent(Request['realname']);
 	var storyFile='js/StoryFile/story'+realname+'.js';
 	
 $(document).ready (function () {
