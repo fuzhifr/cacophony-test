@@ -13,13 +13,6 @@ cacophony.setSize (854, 480);
 // Enable iPad support. Only very simple videos will work currently.
 cacophony.enable_ipad = false;
 
-// Specify the video files. Multiple files are required to be compatible
-// with the different browsers at this time.
-cacophony.setVideo (
-	'video/sodagreen.mp4',
-	'video/sodagreen.webm',
-	'video/sodagreen.ogv'
-);
 
 // Preload any images you'll be using in your story.
 cacophony.preloadImages (

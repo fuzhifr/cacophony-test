@@ -22,17 +22,21 @@
 	   }
 	   return theRequest;
 	}
-	
+
 	var Request = new Object();
 	Request = GetRequest();
 	var filename=Request['filename'];
-	var realname=filename.substring(0,filename.lastIndexOf("."));  
+	var realname=filename.substring(0,filename.lastIndexOf("."));	
+	
+$(document).ready(function(){
+	  
 	var sourceMp4="server/php/files/"+realname+".mp4";
 	var sourceWebm="server/php/files/"+realname+".webm";
 	var sourceOgv="server/php/files/"+realname+".ogv";
-	$("#sourceWebm").attr("src",sourceWebm);
-	$("#sourceOgv").attr("src",sourceOgv);
-	alert(sourceMp4+" "+sourceWebm+" "+sourceOgv);
+	$("#sourceMp4").attr('src',sourceMp4);
+	$("#sourceWebm").attr('src',sourceWebm);
+	$("#sourceOgv").attr('src',sourceOgv);
+});
 </script>
 
 <style>

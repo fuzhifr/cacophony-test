@@ -22,6 +22,8 @@ function submitForm(){
 		data:{qcmJson:qcmJson,inputTextJson:inputTextJson,textJson:textJson},
 		success:function(data){	
 		console.log(data);
+		window.location.href="view.html?realname="+realname;
+		
 		}
 	});
 }

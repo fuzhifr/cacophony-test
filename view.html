@@ -12,7 +12,31 @@
 </head>
 <body>
 <script type="text/javascript">
+function GetRequest() {
+   var url = location.search; //获取url中"?"符后的字串
+   var theRequest = new Object();
+   if (url.indexOf("?") != -1) {
+	  var str = url.substr(1);
+	  strs = str.split("&");
+	  for(var i = 0; i < strs.length; i ++) {
+		 theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+	  }
+   }
+   return theRequest;
+}
+
+	var Request = new Object();
+	Request = GetRequest();
+	var realname=Request['realname'];
+
 $(document).ready (function () {
+	// Specify the video files. Multiple files are required to be compatible
+	// with the different browsers at this time.
+	cacophony.setVideo (
+		'server/php/files/'+realname+'.mp4',
+		'server/php/files/'+realname+'.webm',
+		'server/php/files/'+realname+'.ogv'
+	);
 	cacophony.init ();
 	cacophony.play();
 });
