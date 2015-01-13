@@ -3,12 +3,15 @@
 // Note: This is a demo only. Don't store emails
 // in a text file like this on a real site!
 
-$fp= fopen ('story.js', 'w');
+$realname=$_POST["realname"];
+
+$filename='StoryFile/story'.$realname.'.js';
+$fp= fopen ($filename, 'w');
 fwrite ($fp, "_s[0] = [
 	{a:'bg_fade_in'}];");
 fclose ($fp);
 
-$fp = fopen ('story.js', 'a');
+$fp = fopen ($filename, 'a');
 fwrite ($fp, "\n");
 
 $text=json_decode($_POST["textJson"]);

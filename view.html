@@ -7,7 +7,8 @@
 <script type="text/javascript" src="build/jquery-ui-1.8.6.custom.min.js"></script>
 <script type="text/javascript" src="build/cacophony.min.js"></script>
 <script type="text/javascript" src="js/settings.js"></script>
-<script type="text/javascript" src="js/story.js"></script>
+<script type="text/javascript" src="js/loadJS.js"></script>
+<script id="storyJS" type="text/javascript" src=""></script>
 <link rel="stylesheet" type="text/css" href="build/cacophony.min.css" />
 </head>
 <body>
@@ -28,15 +29,18 @@ function GetRequest() {
 	var Request = new Object();
 	Request = GetRequest();
 	var realname=Request['realname'];
-
+	var storyFile='js/StoryFile/story'+realname+'.js';
+	
 $(document).ready (function () {
 	// Specify the video files. Multiple files are required to be compatible
 	// with the different browsers at this time.
+	loadJS('storyJS',storyFile);
 	cacophony.setVideo (
 		'server/php/files/'+realname+'.mp4',
 		'server/php/files/'+realname+'.webm',
 		'server/php/files/'+realname+'.ogv'
 	);
+
 	cacophony.init ();
 	cacophony.play();
 });

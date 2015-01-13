@@ -19,7 +19,7 @@ function submitForm(){
 		url: "js/settings.php",
 		dataType:'JSON',
 		type:"POST",
-		data:{qcmJson:qcmJson,inputTextJson:inputTextJson,textJson:textJson},
+		data:{qcmJson:qcmJson,inputTextJson:inputTextJson,textJson:textJson,realname:realname},
 		success:function(data){	
 		console.log(data);
 		window.location.href="view.html?realname="+realname;
