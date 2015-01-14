@@ -1,0 +1,78 @@
+<!DOCTYPE html> 
+
+<html>
+<head>
+  <script src="jquery-1.11.2.js"></script>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Création de pages synchronisées sur des vidéos</title
+</head>
+  <style type="text/css">
+  #wrapper {
+		width:98%;
+		margin:0px auto;
+		border:1px solid #bbb;
+		padding:1%;
+	}
+  #header {
+		border:1px solid #bbb;
+		height:20%;
+		padding:1%;
+		width:98%;
+	}
+  #content {
+		margin-top:10px;
+		padding-bottom:10px;
+	}
+	/* applies to all divs within the content div */
+  #content div {
+		padding:1%;
+		border:1px solid #bbb;
+		float:left;
+	}
+  #content-left {
+  	width:15%;
+  	height:350px;
+	}
+  #content-main {
+		margin-left:1%;
+		width:79.6%;
+		height:350px;
+	}
+  #footer {
+		float:left;
+		margin-top:10px;
+		margin-bottom:10px;
+		padding:1%;
+		border:1px solid #bbb;
+		width:98%;
+	}
+  #bottom {
+		clear:both;
+		text-align:right;
+	}
+  </style>
+<body> 
+ <div id="wrapper">
+
+  <h1 id="header" align="center">Bonjour</h1>
+  
+  <div id="content">
+    <div id="content-left">
+			<p>Pages déjà créées</p>
+			<a href="index.html">Créer une nouvelle page</a>
+			
+		</div>
+    <div id="content-main">
+			<p>Ce site permet de créer des pages synchronisées sur des vidéos.</p>
+			<p><u>Comment faire ?</u><br>
+			Il suffit d'importer une vidéo (section Créer une nouvelle page) et d'ajouter des effets parmi ceux proposés.<br>
+			Vous pourrez alors voir votre nouvelle page telle que vous aimeriez que les autres utilisateurs la voient</p>
+		</div>
+  </div>
+  
+  <div id="footer">Footer text and links can go all the way along here... text text text text text text...</div>
+  <div id="bottom"><a title="moodle">Hébergé sur Moodle</a></div>
+
+</div>
+</body>
+</html>

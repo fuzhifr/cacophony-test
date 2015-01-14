@@ -1,2 +1,2 @@
 _s[0] = [
-		{a:'bg_fade_in'}];
+	{a:'bg_fade_in'}];
