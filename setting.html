@@ -39,7 +39,7 @@ $(document).ready(function(){
 });
 </script>
 
-<style>
+<style  type="text/css">
 .content{
     width:100%;
     margin:0 auto;
@@ -56,20 +56,7 @@ $(document).ready(function(){
     position: relative; top: 10px;
      
 }
-.leftDiv12 {
-	border:1px solid #bbb;
-	padding-left:10px;
-	padding-right:10px;
-    position: relative; top: 10px;
-     
-}
-.leftDiv13 {
-	border:1px solid #bbb;
-	padding-left:10px;
-	padding-right:10px;
-    position: relative; top: 10px;
-     
-}
+
 .inputDiv {
 	position: relative; top: 10px
 }
@@ -96,7 +83,23 @@ $(document).ready(function(){
 		<input name="" type="button" value="add text" onClick="AddText()" /> 
 		<input name="" type="button" value="delete text" onClick="deleteText()" />
 		</div>
-		<div class="leftDiv12">
+		<div class="leftDiv11">
+		<h3> Jump To Button</h3>
+		 <table id="buttonTable"> 
+			<tr>
+				<th>*</th>
+				<th>jump to</th>
+				<th>label</th>
+			</tr>
+		</table> 
+		 </form>
+		 <p>
+		<input name="" type="button" value="add jump button" onClick="AddJumpTo()" /> 
+		<input name="" type="button" value="delete jump button" onClick="DeleteJumpTo()" /> 
+		  
+		<p>  
+		</div>
+		<div class="leftDiv11">
 		 <h3>Input Text</h3>
 		 <table id="inputTable"> 
 			<tr>
@@ -111,7 +114,7 @@ $(document).ready(function(){
 		<input name="" type="button" value="delete input-text" onClick="deleteInputText()" />
 		<p>
 		</div>
-		<div class="leftDiv13">
+		<div class="leftDiv11">
 		<h3> Questionnaire a choix multiples</h3>
 		 <table id="optionsTable"> 
 			<tr>

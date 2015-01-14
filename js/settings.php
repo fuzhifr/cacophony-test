@@ -11,6 +11,12 @@ fwrite ($fp, "_s[0] = [
 	{a:'bg_fade_in'}];");
 fclose ($fp);
 
+$buttonJson=$_POST["buttonJson"];
+$fileButton='StoryFile/buttonInfo_'.$realname.'.json';
+$fb= fopen ($fileButton, 'w');
+fwrite ($fb, $buttonJson);
+fclose ($fb);
+
 $fp = fopen ($filename, 'a');
 fwrite ($fp, "\n");
 

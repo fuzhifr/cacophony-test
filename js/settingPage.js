@@ -6,6 +6,10 @@ function submitForm(){
 	var textJson=JSON.stringify(textData);
 	console.log(textJson);
 	
+	var buttonData=getJumpButton();
+	var buttonJson=JSON.stringify(buttonData);
+	console.log(buttonJson);
+	
 	var inputTextData=getInputText();
 	var inputTextJson=JSON.stringify(inputTextData);
 	console.log(inputTextJson);
@@ -19,11 +23,10 @@ function submitForm(){
 		url: "js/settings.php",
 		dataType:'JSON',
 		type:"POST",
-		data:{qcmJson:qcmJson,inputTextJson:inputTextJson,textJson:textJson,realname:realname},
+		data:{qcmJson:qcmJson,buttonJson:buttonJson,inputTextJson:inputTextJson,textJson:textJson,realname:realname},
 		success:function(data){	
 		console.log(data);
 		window.location.href="view.html?realname="+realname;
-		
 		}
 	});
 }
@@ -38,6 +41,20 @@ function getText(){
 	});
 	textData.rows=rows;
 	return textData;
+}
+
+function getJumpButton(){
+	var buttonData={};
+	var rows=[];
+	
+	var textTable=$("tr.jumpButton");
+	$(textTable).each(function(){
+		var i=$(this).attr("id");
+		rows.push({"id":i,"label":$("input[id='label"+i+"']").val(),"jumpTo":$("input[id='jumpToButton"+i+"']").val()});
+	});
+	buttonData.rows=rows;
+	return buttonData;
+	
 }
 // get QCM table data
 function getQCM(){
@@ -85,6 +102,8 @@ var arrayQCM=[];
 var nInputText=0;
 //numero Text
 var nText=0;
+//numero jump button
+var nJump=0;
 
 //ajouter un text
 function AddText(){
@@ -96,7 +115,7 @@ function AddText(){
 						+"</tr>");  
 }
 
-//delete un text
+//delete un text 
 function deleteText(){ 
 	var checked = $("input[type='checkbox'][name='text']"); 
 	$(checked).each(function(){ 
@@ -106,6 +125,27 @@ function deleteText(){
 		} 
 	}); 
 } 
+
+// ajouter un input text
+function AddJumpTo(){ 
+	nJump+=1;
+  $("#buttonTable").append("<tr id="+nJump+" class='jumpButton' align='center'>"
+                                +"<td><input type='checkbox' name='jumpButton'/></td>"
+								+"<td><input type='text' name='jumpToButton"+nJump+"' id='jumpToButton"+nJump+"' size='5' /></td>"
+								+"<td><input type='text' name='label"+nJump+"' id='label"+nJump+"' /></td>"							
+						+"</tr>");     
+} 
+
+function DeleteJumpTo(){ 
+	var checked = $("input[type='checkbox'][name='jumpButton']"); 
+	$(checked).each(function(){ 
+		if($(this).attr("checked")==true)
+		{ 
+			$(this).parent().parent().remove(); 
+		} 
+	}); 
+} 
+
 // ajouter un input text
 function AddInputText(){ 
 	nInputText+=1;
