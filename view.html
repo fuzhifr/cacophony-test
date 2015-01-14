@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Cacophony Demo</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
 <script type="text/javascript" src="build/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="build/jquery-ui-1.8.6.custom.min.js"></script>
@@ -31,7 +32,21 @@ function GetRequest() {
 	var realname=Request['realname'];
 	var storyFile='js/StoryFile/story'+realname+'.js';
 	
+
 $(document).ready (function () {
+    // chaque fois, on regarde le fichier buttoninfo pour créer les buttons automatiquement
+	var urlJSON='js/StoryFile/buttonInfo_'+realname+'.json';
+	$.getJSON(urlJSON,function(data){
+		console.log(data);
+		$.each(data,function(i,item){
+			var buttonHtml="";
+			for(var j=0;j<item.length;j++){
+			buttonHtml+="<button onclick='jumpTo("+item[j].jumpTo+")'>"
+			buttonHtml+=item[j].label+"</button> <p>";
+			}
+			$("#buttonList").html(buttonHtml);
+		});
+	});
 	// Specify the video files. Multiple files are required to be compatible
 	// with the different browsers at this time.
 	loadJS('storyJS',storyFile);
@@ -43,35 +58,41 @@ $(document).ready (function () {
 
 	cacophony.init ();
 	cacophony.play();
+
 });
 
-cacophony.callback.play = function () {
-	$('#scrubber').slider ({
-		max: cacophony.duration,
-		stop: function (event, ui) {
-			cacophony.jumpToTime (ui.value, true);
-		}
-	});
+function jumpTo(time){
+    if(cacophony.beat+1<time){
+		alert("Vous devez avoir visité cette partie!")
+	}else{
+		cacophony.jumpToTime(time);
+	}
 }
-
-cacophony.callback.ready = function () {
-	console.log("cacophony ready");
-}
-
-cacophony.callback.timeupdate = function (time) {
-	$('#scrubber').slider ('option', 'value', time);
-}
-
 </script>
+
 <style type="text/css">
-#scrubber {
-	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
-	width: 854px;
+
+.content{
+    margin:0 auto;
+	overflow:hidden;
 }
+.leftDiv {
+	float:left; 
+	margin-left:10%;
+}
+.rightDiv{
+	float:left; 
+	margin-left:30px;
+	margin-top:5%;
+	width:20%;
+} 
 </style>
-<div id="cacophony"></div>
-<div id="scrubber"></div>
+<div class="content">	
+	<div class="leftDiv">
+	<div id="cacophony" ></div>
+	</div>
+	<div id="buttonList" class="rightDiv">
+	</div>
+</div>
 </body>
 </html>
