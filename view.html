@@ -39,12 +39,19 @@ $(document).ready (function () {
 	$.getJSON(urlJSON,function(data){
 		console.log(data);
 		$.each(data,function(i,item){
-			var buttonHtml="";
+			var buttonHtml="<h3>Chapitre</h3>";
+			var nChapitre=0;
 			for(var j=0;j<item.length;j++){
-			buttonHtml+="<button onclick='jumpTo("+item[j].jumpTo+")'>"
-			buttonHtml+=item[j].label+"</button> <p>";
+				if(!item[j].hasOwnProperty("time")){
+					nChapitre+=1;
+					console.log(item[j].hasOwnProperty("time"));
+					buttonHtml+="<a href='#' onclick='jumpTo("+item[j].jumpTo+")'>Chapitre "+j+"</a><p>"
+					buttonHtml+="Brève："+item[j].label+" <p>";
+				}
 			}
-			$("#buttonList").html(buttonHtml);
+			if(nChapitre!=0){
+				$("#buttonList").html(buttonHtml);
+			}
 		});
 	});
 	// Specify the video files. Multiple files are required to be compatible
@@ -58,15 +65,45 @@ $(document).ready (function () {
 
 	cacophony.init ();
 	cacophony.play();
-
+    
 });
 
-function jumpTo(time){
-    if(cacophony.beat+1<time){
-		alert("Vous devez avoir visité cette partie!")
-	}else{
-		cacophony.jumpToTime(time);
+ function ajouteButton(){
+ 	var urlJSON='js/StoryFile/buttonInfo_'+realname+'.json';
+     $.getJSON(urlJSON,function(data){
+		console.log(data);
+		$.each(data,function(i,item){
+			var buttonHtml="<h3>Button</h3>";
+			var nButton=0;
+			for(var j=0;j<item.length;j++){
+				if(item[j].hasOwnProperty("time")){
+					if(timeRegarde>item[j].time-2){
+						nButton+=1;
+						buttonHtml+="<button onclick='jumpTo("+item[j].jumpTo+")'>"
+						buttonHtml+=item[j].label+"</button> <p>";
+					}
+				}
+			}
+			if(nButton!=0){
+				$("#buttonList2").html(buttonHtml);
+			}
+		});
+	});
+	setTimeout("ajouteButton()",100);
+}
+
+var timeRegarde=0;
+ajouteButton();
+majTimeRegarde();
+
+function majTimeRegarde(){
+	if(timeRegarde<cacophony.beat){
+	  timeRegarde=cacophony.beat;
 	}
+	setTimeout("majTimeRegarde()",100);
+}
+function jumpTo(time){
+		cacophony.jumpToTime(time);
 }
 </script>
 
@@ -91,8 +128,12 @@ function jumpTo(time){
 	<div class="leftDiv">
 	<div id="cacophony" ></div>
 	</div>
-	<div id="buttonList" class="rightDiv">
-	</div>
+	<div  class="rightDiv">
+		<div id="buttonList">
+		</div>
+		<div id="buttonList2">
+		</div>
+	</div>	
 </div>
 </body>
 </html>

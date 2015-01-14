@@ -50,8 +50,15 @@ function getJumpButton(){
 	var textTable=$("tr.jumpButton");
 	$(textTable).each(function(){
 		var i=$(this).attr("id");
-		rows.push({"id":i,"label":$("input[id='label"+i+"']").val(),"jumpTo":$("input[id='jumpToButton"+i+"']").val()});
+		rows.push({"id":i,"time":$("input[id='timeButton"+i+"']").val(),"label":$("input[id='label"+i+"']").val(),"jumpTo":$("input[id='jumpToButton"+i+"']").val()});
 	});
+	
+	var chapitreTable=$("tr.chapitre");
+	$(chapitreTable).each(function(){
+		var i=$(this).attr("id");
+		rows.push({"id":i,"label":$("input[id='msgChapitre"+i+"']").val(),"jumpTo":$("input[id='jumpToChapitre"+i+"']").val()});
+	});
+	
 	buttonData.rows=rows;
 	return buttonData;
 	
@@ -104,6 +111,8 @@ var nInputText=0;
 var nText=0;
 //numero jump button
 var nJump=0;
+//numero chapitre
+var nChapitre=0;
 
 //ajouter un text
 function AddText(){
@@ -126,11 +135,32 @@ function deleteText(){
 	}); 
 } 
 
-// ajouter un input text
+// ajouter une chapitre
+function AddChapitre(){ 
+	nChapitre+=1;
+  $("#chapitreTable").append("<tr id="+nChapitre+" class='chapitre' align='center'>"
+                                +"<td><input type='checkbox' name='chapitre'/></td>"
+								+"<td><input type='text' name='jumpToChapitre"+nChapitre+"' id='jumpToChapitre"+nChapitre+"' size='5' /></td>"
+								+"<td><input type='text' name='msgChapitre"+nChapitre+"' id='msgChapitre"+nChapitre+"' /></td>"							
+						+"</tr>");     
+} 
+
+function DeleteChapitre(){ 
+	var checked = $("input[type='checkbox'][name='chapitre']"); 
+	$(checked).each(function(){ 
+		if($(this).attr("checked")==true)
+		{ 
+			$(this).parent().parent().remove(); 
+		} 
+	}); 
+} 
+
+// ajouter un jump button
 function AddJumpTo(){ 
 	nJump+=1;
   $("#buttonTable").append("<tr id="+nJump+" class='jumpButton' align='center'>"
                                 +"<td><input type='checkbox' name='jumpButton'/></td>"
+								+"<td><input type='text' name='timeButton"+nJump+"' id='timeButton"+nJump+"' size='5' /></td>"
 								+"<td><input type='text' name='jumpToButton"+nJump+"' id='jumpToButton"+nJump+"' size='5' /></td>"
 								+"<td><input type='text' name='label"+nJump+"' id='label"+nJump+"' /></td>"							
 						+"</tr>");     
