@@ -18,8 +18,8 @@ function textfunction(){
  var time=Math.round(myVid.currentTime);
  $("#tableInput").html("<tr><th>time</th><th>message</th></tr>")
  $("#tableInput").append("<tr align='center'>"
-                                +"<td><input class='form-control' type='text' name='timeText' id='timeText' size='5' value='"+time+"'/></td>"
-								+"<td><input class='form-control' type='text' name='msgText' id='msgText' /></td>"	
+                                +"<td><input class='form-control' min=1 type='number' name='timeText' id='timeText' size='5' value='"+time+"' required></td>"
+								+"<td><input class='form-control' type='text' name='msgText' id='msgText' required></td>"	
 						+"</tr>");  
  $("#submitButton").html("<button class='btn' onclick=\"submitButton('text');\">Submit</button>");
 }
@@ -30,7 +30,7 @@ function chapitrefunction(){
  var time=Math.round(myVid.currentTime);
  $("#tableInput").html("<tr><th>time</th><th>introduction</th></tr>")
  $("#tableInput").append("<tr align='center'>"
-                                +"<td><input class='form-control' type='text' name='timeChapitre' id='timeChapitre' size='5' value='"+time+"'/></td>"
+                                +"<td><input class='form-control' min=1 type='number' name='timeChapitre' id='timeChapitre' size='5' value='"+time+"'/></td>"
 								+"<td><input class='form-control' type='text' name='msgChapitre' id='msgChapitre' /></td>"	
 						+"</tr>");  
  $("#submitButton").html("<button class='btn' onclick=\"submitButton('chapitre');\">Submit</button>");
@@ -43,8 +43,8 @@ function inputTextfunction(){
  var time=Math.round(myVid.currentTime);
  $("#tableInput").html("<tr><th>time</th><th>jump to</th><th>message</th></tr>")
  $("#tableInput").append("<tr align='center'>"
-                                +"<td><input class='form-control' type='text' name='timeInput' id='timeInput' size='5' value='"+time+"'/></td>"
-								+"<td><input class='form-control' type='text' name='jumpToInput' id='jumpToInput' size='5' /></td>"
+                                +"<td><input class='form-control' min=1 type='number' name='timeInput' id='timeInput' size='5' value='"+time+"'/></td>"
+								+"<td><input class='form-control' min=1 type='number' name='jumpToInput' id='jumpToInput' size='5' /></td>"
 								+"<td><input class='form-control' type='text' name='msgInput' id='msgInput' /></td>"	
 						+"</tr>");  
  $("#submitButton").html("<button class='btn' onclick=\"submitButton('inputText');\">Submit</button>");
@@ -56,8 +56,8 @@ function jumpfunction(){
  var time=Math.round(myVid.currentTime);
  $("#tableInput").html("<tr><th>time</th><th>jump to</th><th>label</th></tr>")
  $("#tableInput").append("<tr align='center'>"
-                                +"<td><input class='form-control' type='text' name='timeButton' id='timeButton' size='5' value='"+time+"'/></td>"
-								+"<td><input class='form-control' type='text' name='jumpToButton' id='jumpToButton' size='5' /></td>"
+                                +"<td><input class='form-control' min=1 type='number' name='timeButton' id='timeButton' size='5' value='"+time+"'/></td>"
+								+"<td><input class='form-control' min=1 type='number' name='jumpToButton' id='jumpToButton' size='5' /></td>"
 								+"<td><input class='form-control' type='text' name='label' id='label' /></td>"	
 						+"</tr>");  
  $("#submitButton").html("<button class='btn' onclick=\"submitButton('jump');\">Submit</button>");
@@ -69,10 +69,10 @@ function qcmfunction(){
  var time=Math.round(myVid.currentTime);
  $("#tableInput").html("<tr><th>time</th><th>titre de QCM</th><th>option</th><th>jump to</th></tr>")
  $("#tableInput").append("<tr class='QCM' align='center'>"
-                                +"<td><input class='form-control' type='text' name='timeQCM' id='timeQCM' size='5' value='"+time+"'/></td>"
+                                +"<td><input class='form-control' min=1 type='number' name='timeQCM' id='timeQCM' size='5' value='"+time+"'/></td>"
 								+"<td><input class='form-control' type='text' name='titre' id='titre' /></td>"
 								+"<td><input class='form-control' type='text' name='optionQ"+nbOptions+"' id='optionQ"+nbOptions+"' /></td>"
-								+"<td><input class='form-control' type='text' name='jumpToQ"+nbOptions+"' id='jumpToQ"+nbOptions+"' size='5' /></td>"						
+								+"<td><input class='form-control' type='text' name='jumpToQ"+nbOptions+"' id='jumpToQ"+nbOptions+"' placeholder='url ou time' /></td>"						
 						+"</tr>");  
  $("#submitButton").html("<button class='btn' onclick=\"AddOption();\">Add Option</button>&nbsp;&nbsp;&nbsp;<button class='btn' onclick=\"submitButton('qcm');\">Submit</button>");
 }
@@ -107,6 +107,8 @@ function submitForm(){
 		//window.location.href="view.html?realname="+realname;
 		}
 	});
+	
+	return false;
 }
 
 
@@ -210,8 +212,8 @@ function AddText(){
 	var msgText=$("input[id='msgText']").val();
 	  $("#textTable").append("<tr id="+nText+" class='text' align='center'>"
 									+"<td><input type='checkbox' name='text'/></td>"
-									+"<td><input class='form-control' type='text' name='timeText"+nText+"' id='timeText"+nText+"' size='5' value="+timeValue+" /></td>"
-									+"<td><input class='form-control' type='text' name='msgText"+nText+"' id='msgText"+nText+"' value='"+msgText+"' /></td>"	
+									+"<td><input class='form-control' min=1 type='number' name='timeText"+nText+"' id='timeText"+nText+"' size='5' value='"+timeValue+"' required></td>"
+									+"<td><input class='form-control' type='text' name='msgText"+nText+"' id='msgText"+nText+"' value='"+msgText+"' required></td>"	
 							+"</tr>"); 		
 }
 
@@ -250,8 +252,8 @@ function AddChapitre(){
 	var msgValue=$("input[id='msgChapitre']").val();
   $("#chapitreTable").append("<tr id="+nChapitre+" class='chapitre' align='center'>"
                                 +"<td><input type='checkbox' name='chapitre'/></td>"
-								+"<td><input class='form-control' type='text' name='jumpToChapitre"+nChapitre+"' id='jumpToChapitre"+nChapitre+"' value='"+timeValue+"' size='5' /></td>"
-								+"<td><input class='form-control' type='text' name='msgChapitre"+nChapitre+"' id='msgChapitre"+nChapitre+"' value='"+msgValue+"' /></td>"							
+								+"<td><input class='form-control' min=1 type='number' name='jumpToChapitre"+nChapitre+"' id='jumpToChapitre"+nChapitre+"' value='"+timeValue+"' size='5' required></td>"
+								+"<td><input class='form-control' type='text' name='msgChapitre"+nChapitre+"' id='msgChapitre"+nChapitre+"' value='"+msgValue+"' required></td>"							
 						+"</tr>");     
 } 
 
@@ -291,9 +293,9 @@ function AddInputText(){
 	var msgValue=$("input[id='msgInput']").val();
   $("#inputTable").append("<tr id="+nInputText+" class='inputText' align='center'>"
                                 +"<td><input type='checkbox' name='inputText'/></td>"
-                                +"<td><input class='form-control' type='text' name='time"+nInputText+"' id='time"+nInputText+"' value='"+timeValue+"' size='5' /></td>"
-								+"<td><input class='form-control' type='text' name='jumpTo"+nInputText+"' id='jumpTo"+nInputText+"' value='"+jumpToValue+"' size='5' /></td>"
-								+"<td><input class='form-control' type='text' name='msg"+nInputText+"' id='msg"+nInputText+"' value='"+msgValue+"' /></td>"							
+                                +"<td><input class='form-control' min=1 type='number' name='time"+nInputText+"' id='time"+nInputText+"' value='"+timeValue+"' size='5' required></td>"
+								+"<td><input class='form-control' min=1 type='number' name='jumpTo"+nInputText+"' id='jumpTo"+nInputText+"' value='"+jumpToValue+"' size='5' required></td>"
+								+"<td><input class='form-control' type='text' name='msg"+nInputText+"' id='msg"+nInputText+"' value='"+msgValue+"' required></td>"							
 						+"</tr>");     
 } 
 
@@ -324,7 +326,7 @@ function AddJumpTo(){
 								+"<th>jump to</th>"
 								+"<th>label</th>"
 							+"</tr>");
-		$("#btnButton").html("<input class='btn' type='button' value='delete button' onClick='deleteJumpTo()' />");
+		$("#btnButton").html("<input class='btn' type='button' value='delete button' onClick='deleteJumpTo()' >");
 	} 	
 	nJump+=1;
 	var timeValue=$("input[id='timeButton']").val();
@@ -332,9 +334,9 @@ function AddJumpTo(){
 	var msgValue=$("input[id='label']").val();
   $("#buttonTable").append("<tr id="+nJump+" class='jumpButton' align='center'>"
                                 +"<td><input type='checkbox' name='jumpButton'/></td>"
-								+"<td><input class='form-control' type='text' name='timeButton"+nJump+"' id='timeButton"+nJump+"' value='"+timeValue+"' size='5' /></td>"
-								+"<td><input class='form-control' type='text' name='jumpToButton"+nJump+"' id='jumpToButton"+nJump+"' value='"+jumpToValue+"' size='5' /></td>"
-								+"<td><input class='form-control' type='text' name='label"+nJump+"' id='label"+nJump+"' value='"+msgValue+"'  /></td>"							
+								+"<td><input class='form-control' min=1 type='number' name='timeButton"+nJump+"' id='timeButton"+nJump+"' value='"+timeValue+"' size='5' required></td>"
+								+"<td><input class='form-control' min=1 type='number' name='jumpToButton"+nJump+"' id='jumpToButton"+nJump+"' value='"+jumpToValue+"' size='5' required></td>"
+								+"<td><input class='form-control' type='text' name='label"+nJump+"' id='label"+nJump+"' value='"+msgValue+"'  required></td>"							
 						+"</tr>");     
 } 
 
@@ -363,8 +365,8 @@ function AddOption(){
   $("#tableInput").append("<tr class='Q' align='center'>"
 								+"<td></td>"
                                 +"<td></td>"
-								+"<td><input class='form-control' type='text' name='optionQ"+nbOptions+"' id='optionQ"+nbOptions+"' /></td>"				
-								+"<td><input class='form-control' type='text' name='jumpToQ"+nbOptions+"' id='jumpToQ"+nbOptions+"' size='5' /></td>"									
+								+"<td><input class='form-control' type='text' name='optionQ"+nbOptions+"' id='optionQ"+nbOptions+"' required></td>"				
+								+"<td><input class='form-control' pattern='([a-zA-z]+://[^\s]*)|(^[1-9]\d*$)' type='text' name='jumpToQ"+nbOptions+"' id='jumpToQ"+nbOptions+"' placeholder='url ou time' required></td>"									
 						+"</tr>");     
  
 } 
@@ -407,7 +409,7 @@ function AddQCM(){
 								+"<th>option</th>"
 								+"<th>jump to</th>"
 							+"</tr>");
-		$("#btnQCM").html("<input class='btn' type='button' value='delete QCM' onClick='deleteQCM()' />");
+		$("#btnQCM").html("<input class='btn' type='button' value='delete QCM' onClick='deleteQCM()' >");
 	} 	
 	nbQCM+=1;
 	arrayQCM.push("Q"+nbQCM);
@@ -422,18 +424,18 @@ function AddQCM(){
 		var msgValue=$("input[id='titre']").val();
 		$("#qcmTable").append("<tr id="+nbQCM+i+" class='Q"+nbQCM+"' align='center'>"
 							+"<td><input type='checkbox' name='QCM' /></td>"
-							+"<td><input class='form-control' type='text'  name='timeQ"+nbQCM+"' id='timeQ"+nbQCM+"' value="+timeValue+" size='5' /></td>"
-							+"<td><input class='form-control' type='text'  name='msgQ"+nbQCM+"' id='msgQ"+nbQCM+"' value='"+msgValue+"' /></td>"
-							+"<td><input class='form-control' type='text'  name='optionQ"+nbQCM+i+"' id='optionQ"+nbQCM+i+"' value='"+optionValue+"' /></td>"				
-							+"<td><input class='form-control' type='text'  name='jumpToQ"+nbQCM+i+"' id='jumpToQ"+nbQCM+i+"' value='"+jumpToValue+"' size='5' /></td>"								
+							+"<td><input class='form-control' min=1 type='number'  name='timeQ"+nbQCM+"' id='timeQ"+nbQCM+"' value="+timeValue+"  required></td>"
+							+"<td><input class='form-control' type='text'  name='msgQ"+nbQCM+"' id='msgQ"+nbQCM+"' value='"+msgValue+"' required></td>"
+							+"<td><input class='form-control' type='text'  name='optionQ"+nbQCM+i+"' id='optionQ"+nbQCM+i+"' value='"+optionValue+"' required></td>"				
+							+"<td><input class='form-control' pattern='((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)|(^[1-9]\d*$)' type='text'  name='jumpToQ"+nbQCM+i+"' id='jumpToQ"+nbQCM+i+"' value='"+jumpToValue+"' placeholder='url ou time' required></td>"								
 					+"</tr>"); 
 		}else{
 		$("#qcmTable").append("<tr id="+nbQCM+i+" class='Q"+nbQCM+"' align='center'>"
                                 +"<td></td>"
 								+"<td></td>"
                                 +"<td></td>"
-								+"<td><input class='form-control' type='text'  name='optionQ"+nbQCM+i+"' id='optionQ"+nbQCM+i+"' value='"+optionValue+"' /></td>"				
-								+"<td><input class='form-control' type='text'  name='jumpToQ"+nbQCM+i+"' id='jumpToQ"+nbQCM+i+"' value='"+jumpToValue+"' size='5' /></td>"								
+								+"<td><input class='form-control' type='text'  name='optionQ"+nbQCM+i+"' id='optionQ"+nbQCM+i+"' value='"+optionValue+"' required></td>"				
+								+"<td><input class='form-control' type='text' pattern='([a-zA-z]+://[^\s]*)|(^[1-9]\d*$)'  name='jumpToQ"+nbQCM+i+"' id='jumpToQ"+nbQCM+i+"' value='"+jumpToValue+"' placeholder='url ou time' required></td>"								
 						+"</tr>");
 		}
 	}

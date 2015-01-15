@@ -5,6 +5,8 @@
 <script type="text/javascript" src="build/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="js/settingPage.js"></script>
 <script type="text/javascript" src="js/video.js"></script>
+<script type="text/javascript" src="build/bootstrap.min.js"></script>
+<script type="text/javascript" src="build/validator.min.js"></script>
 <link href="css/video-js.css" rel="stylesheet" type="text/css">
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -44,7 +46,7 @@ var checkValue=$("#select_option").val();
 
 //submit le table pour creer une activite
 function submitButton(type){
-	$("#inputDiv").html("<input class='btn' type='button' onclick='submitForm()' value='Submit' />");
+	$("#inputDiv").html("<button class='btn' type='submit'>Submit</button>");
 	if(type=="text"){
 		AddText();
 	}else if(type=="chapitre"){
@@ -62,40 +64,20 @@ function submitButton(type){
 }
 
 </script>
-
-<style  type="text/css">
-.content{
-    width:100%;
-    margin:0 auto;
+<style>
+.inputTable{
+	margin-top:50px;
 }
-.leftDiv1 {
-	/*border:1px solid #bbb;*/
-    position:absolute;
-     
-}
-.leftDiv11 {
-	padding-left:10px;
-	padding-right:10px;
-    position: relative; top: 10px;
-     
-}
-
-.inputDiv {
-	position: relative; top: 10px
-}
-.rightDiv1{
-    margin-left:50%;
-	width:50%;
-} 
-
-</style>   
+</style>  
 </head> 
 <body> 
-<div class="content">
-	<div class="leftDiv1">
-		<div class="leftDiv11 form-group">
-		<button onclick="addUnLigne()" class="btn">add</button>
-		<div class="col-sm-9">
+<div class="container">
+<div class="row">
+	<div class="col-md-6">
+		<div class="col-sm-2">
+			<button onclick="addUnLigne()" class="btn">add</button>
+		</div>
+		<div class="col-sm-4">
 			<select id="select_option" class="form-control">
 			  <option value ="text">Text</option>
 			  <option value ="chapitre">Chapitre</option>
@@ -104,52 +86,60 @@ function submitButton(type){
 			  <option value="qcm">QCM</option>
 			</select>
 		</div>
-		</div>
-	
-		<div class="leftDiv11">
+		<div class="inputTable">
 			<table id="tableInput" class="table">
 			</table>
 			<div id="submitButton"> </div>
-		</div> 
+		</div>
 		<p>
-		<div class="leftDiv11">
-			<form  action="" method="post" name="frm" onsubmit=""> 
-				<!--Text -->
-				<div id="titreText"></div>
-				<table id="textTable" class="table">
-				</table>
-				<div id="btnText"></div>
-				
-				<!--Chapitre-->
-				<div id="titreChapitre"></div>
-				<table id="chapitreTable" class="table">
-				</table>
-				<div id="btnChapitre"></div>
-				
-				<!--input Text-->
-				<div id="titreInputText"></div>
-				<table id="inputTable" class="table">
-				</table>
-				<div id="btnInputText"></div>
-				
-				<!--Button-->
-				<div id="titreButton"></div>
-				<table id="buttonTable" class="table">
-				</table>
-				<div id="btnButton"></div>
-				
-				<!--QCM-->
-				<div id="titreQCM"></div>
-				<table id="qcmTable" class="table">
-				</table>
-				<div id="btnQCM"></div>
-				
-			</form>
+		<form  data-toggle="validator" onsubmit="return submitForm()"> 
+			<!--Text -->
+			<div class="form-group">
+			<div id="titreText"></div>
+			<table id="textTable" class="table">
+			</table>
+			<div id="btnText"></div>
+			</div>
+			
+			<!--Chapitre-->
+			<div class="form-group">
+			<div id="titreChapitre"></div>
+			<table id="chapitreTable" class="table">
+			</table>
+			<div id="btnChapitre"></div>
+			</div>
+			
+			<!--input Text-->
+			<div class="form-group">
+			<div id="titreInputText"></div>
+			<table id="inputTable" class="table">
+			</table>
+			<div id="btnInputText"></div>
+			</div>
+			
+			<!--Button-->
+			<div class="form-group">
+			<div id="titreButton"></div>
+			<table id="buttonTable" class="table">
+			</table>
+			<div id="btnButton"></div>
+			</div>
+			
+			<!--QCM-->
+			<div class="form-group">
+			<div id="titreQCM"></div>
+			<table id="qcmTable" class="table">
+			</table>
+			<div id="btnQCM"></div>
+			</div>
+		
+			<div class="form-group">
 			<div id="inputDiv">
 			</div>
-		</div>
+			</div>
+		</form>
 	</div>
-	<div class="rightDiv1">
+	<div class="col-md-4">
 	  <video id="myVideo" class="video-js vjs-default-skin" controls preload="none" width="600" height="400"
 		  data-setup="{}">
 		<source id="sourceMp4" src="" type='video/mp4' />
@@ -160,6 +150,7 @@ function submitButton(type){
 		<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 	  </video>
 	</div>
+ </div>
 </div>
 </body> 
 </html>
