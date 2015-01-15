@@ -70,10 +70,18 @@ $qcmRows=$qcm->rows;
 		$write.="\",options:[";
 		$i=0;
 		while($i<$nb-1){
+			if (is_numeric($options[$i]->jumpTo)) {
 			$write.="{choice:\"".$options[$i]->option."\",jump_to:".$options[$i]->jumpTo."},";
+			}else{
+			 $write.="{choice:\"<a href='".$options[$i]->jumpTo."'>".$options[$i]->option."</a>\"},";	
+			}
 			$i++;
 		}
+		if (is_numeric($options[$i]->jumpTo)) {
 		$write.="{choice:\"".$options[$i]->option."\",jump_to:".$options[$i]->jumpTo."}]}},{a:'pause'}];\n";
+		}else{
+			$write.="{choice:\"<a href='".$options[$i]->jumpTo."'>".$options[$i]->option."</a>\"}]}},{a:'pause'}];\n";
+		}
 		fwrite ($fp,$write);
 	}
 }

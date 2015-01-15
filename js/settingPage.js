@@ -435,7 +435,7 @@ function AddQCM(){
 								+"<td></td>"
                                 +"<td></td>"
 								+"<td><input class='form-control' type='text'  name='optionQ"+nbQCM+i+"' id='optionQ"+nbQCM+i+"' value='"+optionValue+"' required></td>"				
-								+"<td><input class='form-control' type='text' pattern='([a-zA-z]+://[^\s]*)|(^[1-9]\d*$)'  name='jumpToQ"+nbQCM+i+"' id='jumpToQ"+nbQCM+i+"' value='"+jumpToValue+"' placeholder='url ou time' required></td>"								
+								+"<td><input class='form-control' type='pattern='((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)|(^[1-9]\d*$)'  name='jumpToQ"+nbQCM+i+"' id='jumpToQ"+nbQCM+i+"' value='"+jumpToValue+"' placeholder='url ou time' required></td>"								
 						+"</tr>");
 		}
 	}
