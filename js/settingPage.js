@@ -1,4 +1,82 @@
 
+function GetRequest() {
+	   var url = location.search; //获取url中"?"符后的字串
+	   var theRequest = new Object();
+	   if (url.indexOf("?") != -1) {
+		  var str = url.substr(1);
+		  strs = str.split("&");
+		  for(var i = 0; i < strs.length; i ++) {
+			 theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+		  }
+	   }
+	   return theRequest;
+	}
+
+//creer une champ pour entrer les infos de Text
+function textfunction(){
+ var myVid=document.getElementById("myVideo_html5_api");
+ var time=Math.round(myVid.currentTime);
+ $("#tableInput").html("<tr><th>time</th><th>message</th></tr>")
+ $("#tableInput").append("<tr align='center'>"
+                                +"<td><input class='form-control' type='text' name='timeText' id='timeText' size='5' value='"+time+"'/></td>"
+								+"<td><input class='form-control' type='text' name='msgText' id='msgText' /></td>"	
+						+"</tr>");  
+ $("#submitButton").html("<button class='btn' onclick=\"submitButton('text');\">Submit</button>");
+}
+
+//creer une champ pour entrer les infos de Chapitre
+function chapitrefunction(){
+ var myVid=document.getElementById("myVideo_html5_api");
+ var time=Math.round(myVid.currentTime);
+ $("#tableInput").html("<tr><th>time</th><th>introduction</th></tr>")
+ $("#tableInput").append("<tr align='center'>"
+                                +"<td><input class='form-control' type='text' name='timeChapitre' id='timeChapitre' size='5' value='"+time+"'/></td>"
+								+"<td><input class='form-control' type='text' name='msgChapitre' id='msgChapitre' /></td>"	
+						+"</tr>");  
+ $("#submitButton").html("<button class='btn' onclick=\"submitButton('chapitre');\">Submit</button>");
+}
+
+
+//creer une champ pour entrer les infos de inputText
+function inputTextfunction(){
+ var myVid=document.getElementById("myVideo_html5_api");
+ var time=Math.round(myVid.currentTime);
+ $("#tableInput").html("<tr><th>time</th><th>jump to</th><th>message</th></tr>")
+ $("#tableInput").append("<tr align='center'>"
+                                +"<td><input class='form-control' type='text' name='timeInput' id='timeInput' size='5' value='"+time+"'/></td>"
+								+"<td><input class='form-control' type='text' name='jumpToInput' id='jumpToInput' size='5' /></td>"
+								+"<td><input class='form-control' type='text' name='msgInput' id='msgInput' /></td>"	
+						+"</tr>");  
+ $("#submitButton").html("<button class='btn' onclick=\"submitButton('inputText');\">Submit</button>");
+}
+
+//creer une champ pour entrer les infos de Button
+function jumpfunction(){
+ var myVid=document.getElementById("myVideo_html5_api");
+ var time=Math.round(myVid.currentTime);
+ $("#tableInput").html("<tr><th>time</th><th>jump to</th><th>label</th></tr>")
+ $("#tableInput").append("<tr align='center'>"
+                                +"<td><input class='form-control' type='text' name='timeButton' id='timeButton' size='5' value='"+time+"'/></td>"
+								+"<td><input class='form-control' type='text' name='jumpToButton' id='jumpToButton' size='5' /></td>"
+								+"<td><input class='form-control' type='text' name='label' id='label' /></td>"	
+						+"</tr>");  
+ $("#submitButton").html("<button class='btn' onclick=\"submitButton('jump');\">Submit</button>");
+}
+
+//creer une champ pour entrer les infos de QCM
+function qcmfunction(){
+ var myVid=document.getElementById("myVideo_html5_api");
+ var time=Math.round(myVid.currentTime);
+ $("#tableInput").html("<tr><th>time</th><th>titre de QCM</th><th>option</th><th>jump to</th></tr>")
+ $("#tableInput").append("<tr class='QCM' align='center'>"
+                                +"<td><input class='form-control' type='text' name='timeQCM' id='timeQCM' size='5' value='"+time+"'/></td>"
+								+"<td><input class='form-control' type='text' name='titre' id='titre' /></td>"
+								+"<td><input class='form-control' type='text' name='optionQ"+nbOptions+"' id='optionQ"+nbOptions+"' /></td>"
+								+"<td><input class='form-control' type='text' name='jumpToQ"+nbOptions+"' id='jumpToQ"+nbOptions+"' size='5' /></td>"						
+						+"</tr>");  
+ $("#submitButton").html("<button class='btn' onclick=\"AddOption();\">Add Option</button>&nbsp;&nbsp;&nbsp;<button class='btn' onclick=\"submitButton('qcm');\">Submit</button>");
+}
+
 // function submit les datas
 function submitForm(){
 
@@ -26,10 +104,12 @@ function submitForm(){
 		data:{qcmJson:qcmJson,buttonJson:buttonJson,inputTextJson:inputTextJson,textJson:textJson,realname:realname},
 		success:function(data){	
 		console.log(data);
-		window.location.href="view.html?realname="+realname;
+		//window.location.href="view.html?realname="+realname;
 		}
 	});
 }
+
+
 function getText(){
 	var textData={};
 	var rows=[];
@@ -102,114 +182,194 @@ function getInputText(){
 //nombre de Question
 var nbQCM=0;
 //nombre de options par un QCM
-var nbOptions=0;
+var nbOptions=1;
 // noter les qcm
 var arrayQCM=[];
-//numero inputText
+//nombre inputText
 var nInputText=0;
-//numero Text
+//nombre text
 var nText=0;
-//numero jump button
+//nombre jump button
 var nJump=0;
-//numero chapitre
+//nombreo chapitre
 var nChapitre=0;
 
 //ajouter un text
 function AddText(){
+	if(nText==0){
+		$("#titreText").html("<h3>Text</h3>");
+		$("#textTable").html("<tr>"
+								+"<th>*</th>"
+								+"<th>time</th>"
+								+"<th>message</th>"
+							+"</tr>");
+		$("#btnText").html("<input name='' class='btn' type='button' value='delete text' onClick='deleteText()' />");
+	} 
 	nText+=1;
-  $("#textTable").append("<tr id="+nText+" class='text' align='center'>"
-                                +"<td><input type='checkbox' name='text'/></td>"
-                                +"<td><input type='text' name='timeText"+nText+"' id='timeText"+nText+"' size='5'/></td>"
-								+"<td><input type='text' name='msgText"+nText+"' id='msgText"+nText+"' /></td>"	
-						+"</tr>");  
+	var timeValue=$("input[id='timeText']").val();
+	var msgText=$("input[id='msgText']").val();
+	  $("#textTable").append("<tr id="+nText+" class='text' align='center'>"
+									+"<td><input type='checkbox' name='text'/></td>"
+									+"<td><input class='form-control' type='text' name='timeText"+nText+"' id='timeText"+nText+"' size='5' value="+timeValue+" /></td>"
+									+"<td><input class='form-control' type='text' name='msgText"+nText+"' id='msgText"+nText+"' value='"+msgText+"' /></td>"	
+							+"</tr>"); 		
 }
 
 //delete un text 
 function deleteText(){ 
 	var checked = $("input[type='checkbox'][name='text']"); 
+	var len=checked.length;
 	$(checked).each(function(){ 
 		if($(this).attr("checked")==true)
 		{ 
 			$(this).parent().parent().remove(); 
+			len=len-1;
+			if(len==0){
+				$("#titreText").html("");
+				$("#textTable").html("");
+				$("#btnText").html("");
+				nText=0;
+			}
 		} 
 	}); 
 } 
 
 // ajouter une chapitre
 function AddChapitre(){ 
+	if(nChapitre==0){
+			$("#titreChapitre").html("<h3>Chapitre</h3>");
+			$("#chapitreTable").html("<tr>"
+									+"<th>*</th>"
+									+"<th>time</th>"
+									+"<th>introduction</th>"
+								+"</tr>");
+			$("#btnChapitre").html("<input class='btn' name='' type='button' value='delete Chapitre' onClick='deleteChapitre()' />");
+	} 
 	nChapitre+=1;
+	var timeValue=$("input[id='timeChapitre']").val();
+	var msgValue=$("input[id='msgChapitre']").val();
   $("#chapitreTable").append("<tr id="+nChapitre+" class='chapitre' align='center'>"
                                 +"<td><input type='checkbox' name='chapitre'/></td>"
-								+"<td><input type='text' name='jumpToChapitre"+nChapitre+"' id='jumpToChapitre"+nChapitre+"' size='5' /></td>"
-								+"<td><input type='text' name='msgChapitre"+nChapitre+"' id='msgChapitre"+nChapitre+"' /></td>"							
+								+"<td><input class='form-control' type='text' name='jumpToChapitre"+nChapitre+"' id='jumpToChapitre"+nChapitre+"' value='"+timeValue+"' size='5' /></td>"
+								+"<td><input class='form-control' type='text' name='msgChapitre"+nChapitre+"' id='msgChapitre"+nChapitre+"' value='"+msgValue+"' /></td>"							
 						+"</tr>");     
 } 
 
-function DeleteChapitre(){ 
+function deleteChapitre(){ 
 	var checked = $("input[type='checkbox'][name='chapitre']"); 
+	var len=checked.length;
 	$(checked).each(function(){ 
 		if($(this).attr("checked")==true)
 		{ 
 			$(this).parent().parent().remove(); 
-		} 
-	}); 
-} 
-
-// ajouter un jump button
-function AddJumpTo(){ 
-	nJump+=1;
-  $("#buttonTable").append("<tr id="+nJump+" class='jumpButton' align='center'>"
-                                +"<td><input type='checkbox' name='jumpButton'/></td>"
-								+"<td><input type='text' name='timeButton"+nJump+"' id='timeButton"+nJump+"' size='5' /></td>"
-								+"<td><input type='text' name='jumpToButton"+nJump+"' id='jumpToButton"+nJump+"' size='5' /></td>"
-								+"<td><input type='text' name='label"+nJump+"' id='label"+nJump+"' /></td>"							
-						+"</tr>");     
-} 
-
-function DeleteJumpTo(){ 
-	var checked = $("input[type='checkbox'][name='jumpButton']"); 
-	$(checked).each(function(){ 
-		if($(this).attr("checked")==true)
-		{ 
-			$(this).parent().parent().remove(); 
+			len=len-1;
+			if(len==0){
+				$("#titreChapitre").html("");
+				$("#chapitreTable").html("");
+				$("#btnChapitre").html("");
+				nChapitre=0;
+			}
 		} 
 	}); 
 } 
 
 // ajouter un input text
 function AddInputText(){ 
+	if(nInputText==0){
+			$("#titreInputText").html("<h3>Input Text</h3>");
+			$("#inputTable").html("<tr>"
+									+"<th>*</th>"
+									+"<th>time</th>"
+									+"<th>jump to</th>"
+									+"<th>message</th>"
+								+"</tr>");
+			$("#btnInputText").html("<input class='btn' type='button' value='delete InputText' onClick='deleteInputText()' />");
+	} 
 	nInputText+=1;
+	var timeValue=$("input[id='timeInput']").val();
+	var jumpToValue=$("input[id='jumpToInput']").val();
+	var msgValue=$("input[id='msgInput']").val();
   $("#inputTable").append("<tr id="+nInputText+" class='inputText' align='center'>"
                                 +"<td><input type='checkbox' name='inputText'/></td>"
-                                +"<td><input type='text' name='time"+nInputText+"' id='time"+nInputText+"' size='5'/></td>"
-								+"<td><input type='text' name='jumpTo"+nInputText+"' id='jumpTo"+nInputText+"' size='5' /></td>"
-								+"<td><input type='text' name='msg"+nInputText+"' id='msg"+nInputText+"' /></td>"							
+                                +"<td><input class='form-control' type='text' name='time"+nInputText+"' id='time"+nInputText+"' value='"+timeValue+"' size='5' /></td>"
+								+"<td><input class='form-control' type='text' name='jumpTo"+nInputText+"' id='jumpTo"+nInputText+"' value='"+jumpToValue+"' size='5' /></td>"
+								+"<td><input class='form-control' type='text' name='msg"+nInputText+"' id='msg"+nInputText+"' value='"+msgValue+"' /></td>"							
 						+"</tr>");     
 } 
 
 function deleteInputText(){ 
 	var checked = $("input[type='checkbox'][name='inputText']"); 
+	var len=checked.length;
 	$(checked).each(function(){ 
 		if($(this).attr("checked")==true)
 		{ 
 			$(this).parent().parent().remove(); 
+			len=len-1;
+			if(len==0){
+				$("#titreInputText").html("");
+				$("#inputTable").html("");
+				$("#btnInputText").html("");
+				nInputText=0;
+			}
+		} 
+	}); 
+} 
+// ajouter un jump button
+function AddJumpTo(){ 
+	if(nJump==0){
+		$("#titreButton").html("<h3>Button</h3>");
+		$("#buttonTable").html("<tr>"
+								+"<th>*</th>"
+								+"<th>time</th>"
+								+"<th>jump to</th>"
+								+"<th>label</th>"
+							+"</tr>");
+		$("#btnButton").html("<input class='btn' type='button' value='delete button' onClick='deleteJumpTo()' />");
+	} 	
+	nJump+=1;
+	var timeValue=$("input[id='timeButton']").val();
+	var jumpToValue=$("input[id='jumpToButton']").val();
+	var msgValue=$("input[id='label']").val();
+  $("#buttonTable").append("<tr id="+nJump+" class='jumpButton' align='center'>"
+                                +"<td><input type='checkbox' name='jumpButton'/></td>"
+								+"<td><input class='form-control' type='text' name='timeButton"+nJump+"' id='timeButton"+nJump+"' value='"+timeValue+"' size='5' /></td>"
+								+"<td><input class='form-control' type='text' name='jumpToButton"+nJump+"' id='jumpToButton"+nJump+"' value='"+jumpToValue+"' size='5' /></td>"
+								+"<td><input class='form-control' type='text' name='label"+nJump+"' id='label"+nJump+"' value='"+msgValue+"'  /></td>"							
+						+"</tr>");     
+} 
+
+function deleteJumpTo(){ 
+	var checked = $("input[type='checkbox'][name='jumpButton']"); 
+	len=checked.length;
+	$(checked).each(function(){ 
+		if($(this).attr("checked")==true)
+		{ 
+			$(this).parent().parent().remove(); 
+			len=len-1;
+			if(len==0){
+				$("#titreButton").html("");
+				$("#buttonTable").html("");
+				$("#btnButton").html("");
+				nJump=0;
+			}
 		} 
 	}); 
 } 
 
+
 //ajouter un option pour un QCM 
 function AddOption(){ 
    nbOptions+=1;
-  $("#optionsTable").append("<tr id="+nbQCM+nbOptions+" class='Q"+nbQCM+"' align='center'>"
-                                +"<td></td>"
+  $("#tableInput").append("<tr class='Q' align='center'>"
 								+"<td></td>"
                                 +"<td></td>"
-								+"<td><input type='text'  name='optionQ"+nbQCM+nbOptions+"' id='optionQ"+nbQCM+nbOptions+"' /></td>"				
-								+"<td><input type='text'  name='jumpToQ"+nbQCM+nbOptions+"' id='jumpToQ"+nbQCM+nbOptions+"' size='5' /></td>"									
+								+"<td><input class='form-control' type='text' name='optionQ"+nbOptions+"' id='optionQ"+nbOptions+"' /></td>"				
+								+"<td><input class='form-control' type='text' name='jumpToQ"+nbOptions+"' id='jumpToQ"+nbOptions+"' size='5' /></td>"									
 						+"</tr>");     
  
 } 
-function deleteOption(){ 
+//delete les QCM choisie
+function deleteQCM(){ 
     var checked = $("input[type='checkbox'][name='QCM']"); 
 	$(checked).each(function(){ 
 		if($(this).attr("checked")==true)
@@ -222,25 +382,60 @@ function deleteOption(){
 			
 			for(var i=0;i<arrayQCM.length;i++){
 				if(arrayQCM[i]==trClass){
-				 arrayQCM.splice(i,1);
-				 console.log("arrayQCM : "+arrayQCM);
-				}
+					 arrayQCM.splice(i,1);
+					 console.log("arrayQCM : "+arrayQCM);
+				 }
 			}
-		} 
+			if(arrayQCM.length==0){
+				$("#titreQCM").html("");
+				$("#qcmTable").html("");
+				$("#btnQCM").html("");
+				nbQCM=0;
+			}
+		}
 	}); 
 } 
 // ajouter un QCM
 function AddQCM(){ 
- nbQCM+=1;
- arrayQCM.push("Q"+nbQCM);
- console.log("arrayQCM : "+arrayQCM)
- nbOptions=1;
-  $("#optionsTable").append("<tr id="+nbQCM+nbOptions+" class='Q"+nbQCM+"' align='center'>"
-                                +"<td><input type='checkbox' name='QCM' /></td>"
-								+"<td><input type='text'  name='timeQ"+nbQCM+"' id='timeQ"+nbQCM+"' size='5'/></td>"
-                                +"<td><input type='text'  name='msgQ"+nbQCM+"' id='msgQ"+nbQCM+"' /></td>"
-								+"<td><input type='text'  name='optionQ"+nbQCM+nbOptions+"' id='optionQ"+nbQCM+nbOptions+"' /></td>"				
-								+"<td><input type='text'  name='jumpToQ"+nbQCM+nbOptions+"' id='jumpToQ"+nbQCM+nbOptions+"' size='5' /></td>"								
-						+"</tr>");  
+
+	if(nbQCM==0){
+		$("#titreQCM").html("<h3>QCM</h3>");
+		$("#qcmTable").html("<tr>"
+								+"<th>*</th>"
+								+"<th>time</th>"
+								+"<th>titre de QCM</th>"
+								+"<th>option</th>"
+								+"<th>jump to</th>"
+							+"</tr>");
+		$("#btnQCM").html("<input class='btn' type='button' value='delete QCM' onClick='deleteQCM()' />");
+	} 	
+	nbQCM+=1;
+	arrayQCM.push("Q"+nbQCM);
+	console.log("arrayQCM : "+arrayQCM);
+	for(var i=1;i<nbOptions+1;i++){
+		var optionValue=$("input[id='optionQ"+i+"']").val();
+		var jumpToValue=$("input[id='jumpToQ"+i+"']").val();
+		console.log("option "+i+" "+optionValue);
+		console.log("jump "+i+" "+jumpToValue);
+		if(i==1){
+		var timeValue=$("input[id='timeQCM']").val();
+		var msgValue=$("input[id='titre']").val();
+		$("#qcmTable").append("<tr id="+nbQCM+i+" class='Q"+nbQCM+"' align='center'>"
+							+"<td><input type='checkbox' name='QCM' /></td>"
+							+"<td><input class='form-control' type='text'  name='timeQ"+nbQCM+"' id='timeQ"+nbQCM+"' value="+timeValue+" size='5' /></td>"
+							+"<td><input class='form-control' type='text'  name='msgQ"+nbQCM+"' id='msgQ"+nbQCM+"' value='"+msgValue+"' /></td>"
+							+"<td><input class='form-control' type='text'  name='optionQ"+nbQCM+i+"' id='optionQ"+nbQCM+i+"' value='"+optionValue+"' /></td>"				
+							+"<td><input class='form-control' type='text'  name='jumpToQ"+nbQCM+i+"' id='jumpToQ"+nbQCM+i+"' value='"+jumpToValue+"' size='5' /></td>"								
+					+"</tr>"); 
+		}else{
+		$("#qcmTable").append("<tr id="+nbQCM+i+" class='Q"+nbQCM+"' align='center'>"
+                                +"<td></td>"
+								+"<td></td>"
+                                +"<td></td>"
+								+"<td><input class='form-control' type='text'  name='optionQ"+nbQCM+i+"' id='optionQ"+nbQCM+i+"' value='"+optionValue+"' /></td>"				
+								+"<td><input class='form-control' type='text'  name='jumpToQ"+nbQCM+i+"' id='jumpToQ"+nbQCM+i+"' value='"+jumpToValue+"' size='5' /></td>"								
+						+"</tr>");
+		}
+	}
   						
 } 

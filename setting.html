@@ -6,22 +6,11 @@
 <script type="text/javascript" src="js/settingPage.js"></script>
 <script type="text/javascript" src="js/video.js"></script>
 <link href="css/video-js.css" rel="stylesheet" type="text/css">
+<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
 <script>
     videojs.options.flash.swf = "js/video-js.swf";
-	function GetRequest() {
-	   var url = location.search; //获取url中"?"符后的字串
-	   var theRequest = new Object();
-	   if (url.indexOf("?") != -1) {
-		  var str = url.substr(1);
-		  strs = str.split("&");
-		  for(var i = 0; i < strs.length; i ++) {
-			 theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
-		  }
-	   }
-	   return theRequest;
-	}
 
 	var Request = new Object();
 	Request = GetRequest();
@@ -37,6 +26,41 @@ $(document).ready(function(){
 	$("#sourceWebm").attr('src',sourceWebm);
 	$("#sourceOgv").attr('src',sourceOgv);
 });
+
+function addUnLigne(){
+var checkValue=$("#select_option").val();
+	if(checkValue=="text"){
+		textfunction();
+	}else if(checkValue=="chapitre"){
+		chapitrefunction();
+	}else if(checkValue=="inputText"){
+		inputTextfunction();
+	}else if(checkValue=="jump"){
+		jumpfunction();
+	}else if(checkValue=="qcm"){
+		qcmfunction();
+	}
+}
+
+//submit le table pour creer une activite
+function submitButton(type){
+	$("#inputDiv").html("<input class='btn' type='button' onclick='submitForm()' value='Submit' />");
+	if(type=="text"){
+		AddText();
+	}else if(type=="chapitre"){
+		AddChapitre();
+	}else if(type=="inputText"){
+		AddInputText();
+	}else if(type=="jump"){
+		AddJumpTo();
+	}else if(type=="qcm"){
+		AddQCM();
+		nbOptions=1;
+	}
+	$("#tableInput").html("");
+	$("#submitButton").html("");
+}
+
 </script>
 
 <style  type="text/css">
@@ -50,7 +74,6 @@ $(document).ready(function(){
      
 }
 .leftDiv11 {
-	border:1px solid #bbb;
 	padding-left:10px;
 	padding-right:10px;
     position: relative; top: 10px;
@@ -61,100 +84,73 @@ $(document).ready(function(){
 	position: relative; top: 10px
 }
 .rightDiv1{
-    margin-left:41%;
-	width:58%;
+    margin-left:50%;
+	width:50%;
 } 
+
 </style>   
 </head> 
 <body> 
 <div class="content">
 	<div class="leftDiv1">
-		 <form action="" method="post" name="frm"> 
-		 <div class="leftDiv11">
-		 <h3>Text</h3>
-		 <table id="textTable"> 
-			<tr>
-				<th>*</th>
-				<th>time</th>
-				<th>message</th>
-			</tr>
-		</table> 
+		<div class="leftDiv11 form-group">
+		<button onclick="addUnLigne()" class="btn">add</button>
+		<div class="col-sm-9">
+			<select id="select_option" class="form-control">
+			  <option value ="text">Text</option>
+			  <option value ="chapitre">Chapitre</option>
+			  <option value="inputText">Input Text</option>
+			  <option value="jump">Jump to Button</option>
+			  <option value="qcm">QCM</option>
+			</select>
+		</div>
+		</div>
+	
+		<div class="leftDiv11">
+			<table id="tableInput" class="table">
+			</table>
+			<div id="submitButton"> </div>
+		</div> 
 		<p>
-		<input name="" type="button" value="add text" onClick="AddText()" /> 
-		<input name="" type="button" value="delete text" onClick="deleteText()" />
-		</div>
 		<div class="leftDiv11">
-		<h3>Chapitre</h3>
-		 <table id="chapitreTable"> 
-			<tr>
-				<th>*</th>
-				<th>jump to</th>
-				<th>brève</th>
-			</tr>
-		</table> 
-		 </form>
-		 <p>
-		<input name="" type="button" value="add chapitre" onClick="AddChapitre()" /> 
-		<input name="" type="button" value="delete chapitre" onClick="DeleteChapitre()" />   
-		<p>  
-		</div>
-		<div class="leftDiv11">
-		<h3> Jump To Button</h3>
-		 <table id="buttonTable"> 
-			<tr>
-				<th>*</th>
-				<th>time</th>
-				<th>jump to</th>
-				<th>label</th>
-			</tr>
-		</table> 
-		 </form>
-		 <p>
-		<input name="" type="button" value="add jump button" onClick="AddJumpTo()" /> 
-		<input name="" type="button" value="delete jump button" onClick="DeleteJumpTo()" />   
-		<p>  
-		</div>
-		<div class="leftDiv11">
-		 <h3>Input Text</h3>
-		 <table id="inputTable"> 
-			<tr>
-				<th>*</th>
-				<th>time</th>
-				<th>jump to</th>
-				<th>message</th>
-			</tr>
-		</table> 
-		<p>
-		<input name="" type="button" value="add input-text" onClick="AddInputText()" /> 
-		<input name="" type="button" value="delete input-text" onClick="deleteInputText()" />
-		<p>
-		</div>
-		<div class="leftDiv11">
-		<h3> Questionnaire a choix multiples</h3>
-		 <table id="optionsTable"> 
-			<tr>
-				<th>*</th>
-				<th>time</th>
-				<th>message</th>
-				<th>option</th>
-				<th>jump to</th>
-			</tr>
-		</table> 
-		 </form>
-		 <p>
-		 <input name="" type="button" value="add QCM" onClick="AddQCM()" /> 
-		 <input name="" type="button" value="delete QCM" onClick="deleteOption()" />
-		 <input name="" type="button" value="add option" onClick="AddOption()" /> 
-		  
-		<p>  
-		</div>
-		<div class="inputDiv">
-		<input type="button" onclick="submitForm()" value="Submit"/>
+			<form  action="" method="post" name="frm" onsubmit=""> 
+				<!--Text -->
+				<div id="titreText"></div>
+				<table id="textTable" class="table">
+				</table>
+				<div id="btnText"></div>
+				
+				<!--Chapitre-->
+				<div id="titreChapitre"></div>
+				<table id="chapitreTable" class="table">
+				</table>
+				<div id="btnChapitre"></div>
+				
+				<!--input Text-->
+				<div id="titreInputText"></div>
+				<table id="inputTable" class="table">
+				</table>
+				<div id="btnInputText"></div>
+				
+				<!--Button-->
+				<div id="titreButton"></div>
+				<table id="buttonTable" class="table">
+				</table>
+				<div id="btnButton"></div>
+				
+				<!--QCM-->
+				<div id="titreQCM"></div>
+				<table id="qcmTable" class="table">
+				</table>
+				<div id="btnQCM"></div>
+				
+			</form>
+			<div id="inputDiv">
+			</div>
 		</div>
 	</div>
-	
 	<div class="rightDiv1">
-	  <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="800" height="400"
+	  <video id="myVideo" class="video-js vjs-default-skin" controls preload="none" width="600" height="400"
 		  data-setup="{}">
 		<source id="sourceMp4" src="" type='video/mp4' />
 		<source id="sourceWebm" src="" type='video/webm' />
