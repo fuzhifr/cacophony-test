@@ -5,7 +5,7 @@
 
 $realname=$_POST["realname"];
 
-$filename='StoryFile/story'.$realname.'.js';
+$filename='StoryFile/'.$realname.'.js';
 $fp= fopen ($filename, 'w');
 fwrite ($fp, "_s[0] = [
 	{a:'bg_fade_in'}];");
