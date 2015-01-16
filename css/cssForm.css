@@ -1,4 +1,7 @@
-
+body{
+background-color: #333333;
+margin-top:7%;
+}
 .container {
     width: 406px;
     max-width: 406px;
