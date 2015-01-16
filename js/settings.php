@@ -50,7 +50,7 @@ function writeInputText($inputText,$fp){
 	 $write="_s[".$row->time."]=[{a:'input_text', d:{msg:\"";
 	 $write.=$row->msg;
 	 $write.="\",thanks:\"Thanks for your input\",
-		save_to: 'save_input.php',jump_to:";
+		save_to: 'save_input.php?filename=".$realname."',jump_to:";
 	 $write.=$row->jumpTo."}},
 		{a:'pause'}]; \n";
 	 fwrite ($fp,$write);
@@ -73,14 +73,14 @@ $qcmRows=$qcm->rows;
 			if (is_numeric($options[$i]->jumpTo)) {
 			$write.="{choice:\"".$options[$i]->option."\",jump_to:".$options[$i]->jumpTo."},";
 			}else{
-			 $write.="{choice:\"<a href='".$options[$i]->jumpTo."'>".$options[$i]->option."</a>\"},";	
+			 $write.="{choice:\"<a target='_blank' href='".$options[$i]->jumpTo."'>".$options[$i]->option."</a>\"},";	
 			}
 			$i++;
 		}
 		if (is_numeric($options[$i]->jumpTo)) {
 		$write.="{choice:\"".$options[$i]->option."\",jump_to:".$options[$i]->jumpTo."}]}},{a:'pause'}];\n";
 		}else{
-			$write.="{choice:\"<a href='".$options[$i]->jumpTo."'>".$options[$i]->option."</a>\"}]}},{a:'pause'}];\n";
+			$write.="{choice:\"<a target='_blank' href='".$options[$i]->jumpTo."'>".$options[$i]->option."</a>\"}]}},{a:'pause'}];\n";
 		}
 		fwrite ($fp,$write);
 	}

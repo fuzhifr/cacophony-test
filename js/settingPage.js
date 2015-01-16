@@ -104,7 +104,7 @@ function submitForm(){
 		data:{qcmJson:qcmJson,buttonJson:buttonJson,inputTextJson:inputTextJson,textJson:textJson,realname:realname},
 		success:function(data){	
 		console.log(data);
-		//window.location.href="view.html?realname="+realname;
+		window.location.href="view.html?realname="+realname;
 		}
 	});
 	
