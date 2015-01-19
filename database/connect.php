@@ -1,7 +1,7 @@
 <?php
 if(!(isset($_POST['login']) && isset($_POST['password'])))
 {
-    header('Location: ../loginForm.html');
+   header('Location: ../loginForm.html');
 }
 else
 {
@@ -19,6 +19,8 @@ else
         $login = $_POST['login'];
         $password = $_POST['password'];
 
+		print_r($login);
+		print_r($password);
 		require('util.php');
 		define("ENCRYPTION_KEY", "=@~#;:&-");
 		
@@ -27,16 +29,17 @@ else
 		$user = $req->fetch();
 		if ($req->rowCount() > 0) {
 			//le login existe  header('Location: ../home.html');
-			$passwordBD = decrypt(base64_decode($user['password']), ENCRYPTION_KEY);
+			$passwordBD = $user['password'];
+			$password = base64_encode(encrypt($password, ENCRYPTION_KEY));
 			if($passwordBD==$password){
 			//c'est le bon password
 			echo "Vous êtes connecté";
-			header('Location: ../home.html');
+			//header('Location: ../home.html');
 			}
 			else{
 			//mauvais password
 			echo "Erreur de mot de passe, veuillez le retaper";
-			header('Location: ../loginForm.html');
+			//header('Location: ../loginForm.html');
 			}
 		}
 		else{
