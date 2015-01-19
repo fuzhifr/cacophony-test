@@ -100,7 +100,8 @@ function submitForm(){
 		data:{data:dataJson,realname:realname},
 		success:function(data){	
 		console.log(data);
-		window.location.href="view.html?realname="+realname;
+		//window.location.href="view.html?realname="+realname;
+		window.open("view.html?realname="+realname,'_blank');
 		}
 	});
 	
