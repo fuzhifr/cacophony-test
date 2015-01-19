@@ -20,7 +20,40 @@
 	var realname=filename.substring(0,filename.lastIndexOf("."));	
 	
 $(document).ready(function(){
-	  
+
+	//si le video deja settings. charger les infos
+	$.ajax({
+		url: "php/settingFile.php",
+		dataType:'JSON',
+		type:"POST",
+		data:{realname:realname},
+		success:function(data){	
+			if(data!="no exists"){
+			var obj = eval ("(" + data + ")");
+			var qcm=obj.qcm;
+			var button=obj.button;
+			var inputText=obj.inputText;
+			var text=obj.text;
+			for(var i=0;i<qcm.rows.length;i++){
+					AddQCM(qcm.rows[i]);
+			}
+			for(var i=0;i<button.rows.length;i++){
+			  if(button.rows[i].hasOwnProperty("time")){
+				AddJumpTo(button.rows[i]);
+				}else{
+				AddChapitre(button.rows[i]);
+			 }
+			}
+			for(var i=0;i<inputText.rows.length;i++){
+					AddInputText(inputText.rows[i]);
+			}
+			for(var i=0;i<text.rows.length;i++){
+					AddText(text.rows[i]);
+			}
+			$("#inputDiv").html("<button class='btn' type='submit'>Submit</button>");
+		}
+	  }
+	});
 	var sourceMp4="server/php/files/"+realname+".mp4";
 	var sourceWebm="server/php/files/"+realname+".webm";
 	var sourceOgv="server/php/files/"+realname+".ogv";
@@ -48,15 +81,15 @@ var checkValue=$("#select_option").val();
 function submitButton(type){
 	$("#inputDiv").html("<button class='btn' type='submit'>Submit</button>");
 	if(type=="text"){
-		AddText();
+		AddText("");
 	}else if(type=="chapitre"){
-		AddChapitre();
+		AddChapitre("");
 	}else if(type=="inputText"){
-		AddInputText();
+		AddInputText("");
 	}else if(type=="jump"){
-		AddJumpTo();
+		AddJumpTo("");
 	}else if(type=="qcm"){
-		AddQCM();
+		AddQCM("");
 		nbOptions=1;
 	}
 	$("#tableInput").html("");

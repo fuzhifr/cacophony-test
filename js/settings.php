@@ -11,23 +11,21 @@ fwrite ($fp, "_s[0] = [
 	{a:'bg_fade_in'}];");
 fclose ($fp);
 
-$buttonJson=$_POST["buttonJson"];
-$fileButton='StoryFile/buttonInfo_'.$realname.'.json';
-$fb= fopen ($fileButton, 'w');
-fwrite ($fb, $buttonJson);
+$data=$_POST["data"];
+$file='StoryFile/info_'.$realname.'.json';
+$fb= fopen ($file, 'w');
+fwrite ($fb, $data);
 fclose ($fb);
 
 $fp = fopen ($filename, 'a');
 fwrite ($fp, "\n");
 
-$text=json_decode($_POST["textJson"]);
-writeText($text,$fp);
+$data=json_decode($data);
+writeText($data->text,$fp);
 
-$inputText=json_decode($_POST["inputTextJson"]);
-writeInputText($inputText,$fp);
+writeInputText($data->inputText,$fp);
 
-$qcm=json_decode($_POST["qcmJson"]);
-writeQCM($qcm,$fp);
+writeQCM($data->qcm,$fp);
 
 fclose ($fp);
 

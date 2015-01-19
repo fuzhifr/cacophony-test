@@ -1,6 +1,6 @@
 
 function GetRequest() {
-	   var url = location.search; //获取url中"?"符后的字串
+	   var url = location.search; //get les lettres apres "?"
 	   var theRequest = new Object();
 	   if (url.indexOf("?") != -1) {
 		  var str = url.substr(1);
@@ -81,27 +81,23 @@ function qcmfunction(){
 function submitForm(){
 
 	var textData=getText();
-	var textJson=JSON.stringify(textData);
-	console.log(textJson);
-	
 	var buttonData=getJumpButton();
-	var buttonJson=JSON.stringify(buttonData);
-	console.log(buttonJson);
-	
-	var inputTextData=getInputText();
-	var inputTextJson=JSON.stringify(inputTextData);
-	console.log(inputTextJson);
-	
+	var inputTextData=getInputText();	
 	var qcmData=getQCM();
-	var qcmJson=JSON.stringify(qcmData);
-	console.log(qcmJson);
 	
+	var data={};
+	data.qcm=qcmData;
+	data.button=buttonData;
+	data.inputText=inputTextData;
+	data.text=textData;
+	dataJson=JSON.stringify(data);
+	console.log(data);
 	// envoyer tous les datas a  settings.php
 	$.ajax({
 		url: "js/settings.php",
 		dataType:'JSON',
 		type:"POST",
-		data:{qcmJson:qcmJson,buttonJson:buttonJson,inputTextJson:inputTextJson,textJson:textJson,realname:realname},
+		data:{data:dataJson,realname:realname},
 		success:function(data){	
 		console.log(data);
 		window.location.href="view.html?realname="+realname;
@@ -197,7 +193,7 @@ var nJump=0;
 var nChapitre=0;
 
 //ajouter un text
-function AddText(){
+function AddText(row){
 	if(nText==0){
 		$("#titreText").html("<h3>Text</h3>");
 		$("#textTable").html("<tr>"
@@ -208,8 +204,13 @@ function AddText(){
 		$("#btnText").html("<input name='' class='btn' type='button' value='delete text' onClick='deleteText()' />");
 	} 
 	nText+=1;
-	var timeValue=$("input[id='timeText']").val();
-	var msgText=$("input[id='msgText']").val();
+	if(row==""){
+		var timeValue=$("input[id='timeText']").val();
+		var msgText=$("input[id='msgText']").val();
+	}else{
+		var timeValue=row.time;
+		var msgText=row.msg;
+	}
 	  $("#textTable").append("<tr id="+nText+" class='text' align='center'>"
 									+"<td><input type='checkbox' name='text'/></td>"
 									+"<td><input class='form-control' min=1 type='number' name='timeText"+nText+"' id='timeText"+nText+"' size='5' value='"+timeValue+"' required></td>"
@@ -237,7 +238,7 @@ function deleteText(){
 } 
 
 // ajouter une chapitre
-function AddChapitre(){ 
+function AddChapitre(row){ 
 	if(nChapitre==0){
 			$("#titreChapitre").html("<h3>Chapitre</h3>");
 			$("#chapitreTable").html("<tr>"
@@ -248,8 +249,13 @@ function AddChapitre(){
 			$("#btnChapitre").html("<input class='btn' name='' type='button' value='delete Chapitre' onClick='deleteChapitre()' />");
 	} 
 	nChapitre+=1;
-	var timeValue=$("input[id='timeChapitre']").val();
-	var msgValue=$("input[id='msgChapitre']").val();
+	if(row==""){
+		var timeValue=$("input[id='timeChapitre']").val();
+		var msgValue=$("input[id='msgChapitre']").val();
+	}else{
+		var timeValue=row.jumpTo;
+		var msgValue=row.label;
+	}
   $("#chapitreTable").append("<tr id="+nChapitre+" class='chapitre' align='center'>"
                                 +"<td><input type='checkbox' name='chapitre'/></td>"
 								+"<td><input class='form-control' min=1 type='number' name='jumpToChapitre"+nChapitre+"' id='jumpToChapitre"+nChapitre+"' value='"+timeValue+"' size='5' required></td>"
@@ -276,7 +282,7 @@ function deleteChapitre(){
 } 
 
 // ajouter un input text
-function AddInputText(){ 
+function AddInputText(row){ 
 	if(nInputText==0){
 			$("#titreInputText").html("<h3>Input Text</h3>");
 			$("#inputTable").html("<tr>"
@@ -288,9 +294,15 @@ function AddInputText(){
 			$("#btnInputText").html("<input class='btn' type='button' value='delete InputText' onClick='deleteInputText()' />");
 	} 
 	nInputText+=1;
-	var timeValue=$("input[id='timeInput']").val();
-	var jumpToValue=$("input[id='jumpToInput']").val();
-	var msgValue=$("input[id='msgInput']").val();
+	if(row==""){
+		var timeValue=$("input[id='timeInput']").val();
+		var jumpToValue=$("input[id='jumpToInput']").val();
+		var msgValue=$("input[id='msgInput']").val();
+	}else{
+		var timeValue=row.time;
+		var jumpToValue=row.jumpTo;
+		var msgValue=row.msg;
+	}
   $("#inputTable").append("<tr id="+nInputText+" class='inputText' align='center'>"
                                 +"<td><input type='checkbox' name='inputText'/></td>"
                                 +"<td><input class='form-control' min=1 type='number' name='time"+nInputText+"' id='time"+nInputText+"' value='"+timeValue+"' size='5' required></td>"
@@ -317,7 +329,7 @@ function deleteInputText(){
 	}); 
 } 
 // ajouter un jump button
-function AddJumpTo(){ 
+function AddJumpTo(row){ 
 	if(nJump==0){
 		$("#titreButton").html("<h3>Button</h3>");
 		$("#buttonTable").html("<tr>"
@@ -329,9 +341,15 @@ function AddJumpTo(){
 		$("#btnButton").html("<input class='btn' type='button' value='delete button' onClick='deleteJumpTo()' >");
 	} 	
 	nJump+=1;
+	if(row==""){
 	var timeValue=$("input[id='timeButton']").val();
 	var jumpToValue=$("input[id='jumpToButton']").val();
 	var msgValue=$("input[id='label']").val();
+	}else{
+	var timeValue=row.time;
+	var jumpToValue=row.jumpTo;
+	var msgValue=row.label;
+	}
   $("#buttonTable").append("<tr id="+nJump+" class='jumpButton' align='center'>"
                                 +"<td><input type='checkbox' name='jumpButton'/></td>"
 								+"<td><input class='form-control' min=1 type='number' name='timeButton"+nJump+"' id='timeButton"+nJump+"' value='"+timeValue+"' size='5' required></td>"
@@ -398,7 +416,7 @@ function deleteQCM(){
 	}); 
 } 
 // ajouter un QCM
-function AddQCM(){ 
+function AddQCM(row){ 
 
 	if(nbQCM==0){
 		$("#titreQCM").html("<h3>QCM</h3>");
@@ -413,15 +431,25 @@ function AddQCM(){
 	} 	
 	nbQCM+=1;
 	arrayQCM.push("Q"+nbQCM);
-	console.log("arrayQCM : "+arrayQCM);
+	if(row!=""){
+		nbOptions=row.options.length;
+	}
 	for(var i=1;i<nbOptions+1;i++){
-		var optionValue=$("input[id='optionQ"+i+"']").val();
-		var jumpToValue=$("input[id='jumpToQ"+i+"']").val();
-		console.log("option "+i+" "+optionValue);
-		console.log("jump "+i+" "+jumpToValue);
+		if(row==""){
+			var optionValue=$("input[id='optionQ"+i+"']").val();
+			var jumpToValue=$("input[id='jumpToQ"+i+"']").val();
+		}else{
+			var optionValue=row.options[i-1].option;
+			var jumpToValue=row.options[i-1].jumpTo;
+		}
 		if(i==1){
-		var timeValue=$("input[id='timeQCM']").val();
-		var msgValue=$("input[id='titre']").val();
+			if(row==""){
+				var timeValue=$("input[id='timeQCM']").val();
+				var msgValue=$("input[id='titre']").val();
+			}else{
+				var timeValue=row.time;
+				var msgValue=row.msg;
+			}
 		$("#qcmTable").append("<tr id="+nbQCM+i+" class='Q"+nbQCM+"' align='center'>"
 							+"<td><input type='checkbox' name='QCM' /></td>"
 							+"<td><input class='form-control' min=1 type='number'  name='timeQ"+nbQCM+"' id='timeQ"+nbQCM+"' value="+timeValue+"  required></td>"
@@ -438,6 +466,5 @@ function AddQCM(){
 								+"<td><input class='form-control' type='pattern='((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)|(^[1-9]\d*$)'  name='jumpToQ"+nbQCM+i+"' id='jumpToQ"+nbQCM+i+"' value='"+jumpToValue+"' placeholder='url ou time' required></td>"								
 						+"</tr>");
 		}
-	}
-  						
-} 
+	}				
+}

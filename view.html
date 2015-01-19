@@ -30,29 +30,28 @@ function GetRequest() {
 	var Request = new Object();
 	Request = GetRequest();
 	var realname=Request['realname'];
-	var storyFile='js/StoryFile/story'+realname+'.js';
+	var storyFile='js/StoryFile/'+realname+'.js';
 	
 
 $(document).ready (function () {
     // chaque fois, on regarde le fichier buttoninfo pour créer les buttons automatiquement
-	var urlJSON='js/StoryFile/buttonInfo_'+realname+'.json';
+	var urlJSON='js/StoryFile/Info_'+realname+'.json';
 	$.getJSON(urlJSON,function(data){
-		console.log(data);
-		$.each(data,function(i,item){
+		var len=data.button.rows.length;
+		var nChapitre=0;
+		if(len!=0){
 			var buttonHtml="<h3>Chapitre</h3>";
-			var nChapitre=0;
-			for(var j=0;j<item.length;j++){
-				if(!item[j].hasOwnProperty("time")){
+			for(var i=0;i<len;i++){
+				if(!data.button.rows[i].hasOwnProperty("time")){
 					nChapitre+=1;
-					console.log(item[j].hasOwnProperty("time"));
-					buttonHtml+="<a href='#' onclick='jumpTo("+item[j].jumpTo+")'>Chapitre "+j+"</a><p>"
-					buttonHtml+="Brève："+item[j].label+" <p>";
+					buttonHtml+="<a href='#' onclick='jumpTo("+data.button.rows[i].jumpTo+")'>Chapitre "+nChapitre+"</a><p>"
+					buttonHtml+="Introduction："+data.button.rows[i].label+" <p>";
 				}
 			}
-			if(nChapitre!=0){
+			 if(nChapitre!=0){
 				$("#buttonList").html(buttonHtml);
 			}
-		});
+		}
 	});
 	// Specify the video files. Multiple files are required to be compatible
 	// with the different browsers at this time.
@@ -70,27 +69,27 @@ $(document).ready (function () {
 });
 
  function ajouteButton(){
- 	var urlJSON='js/StoryFile/buttonInfo_'+realname+'.json';
+ 	var urlJSON='js/StoryFile/Info_'+realname+'.json';
      $.getJSON(urlJSON,function(data){
-		console.log(data);
-		$.each(data,function(i,item){
+		var len=data.button.rows.length;
+		if(len!=0){
 			var buttonHtml="<h3>Button</h3>";
 			var nButton=0;
-			for(var j=0;j<item.length;j++){
-				if(item[j].hasOwnProperty("time")){
-					if(timeRegarde>item[j].time-2){
+			for(var i=0;i<len;i++){
+				if(data.button.rows[i].hasOwnProperty("time")){
+					if(timeRegarde>data.button.rows[i].time-2){
 						nButton+=1;
-						buttonHtml+="<button onclick='jumpTo("+item[j].jumpTo+")'>"
-						buttonHtml+=item[j].label+"</button> <p>";
+						buttonHtml+="<button onclick='jumpTo("+data.button.rows[i].jumpTo+")'>"
+						buttonHtml+=data.button.rows[i].label+"</button> <p>";
 					}
 				}
 			}
 			if(nButton!=0){
 				$("#buttonList2").html(buttonHtml);
 			}
-		});
+		}
 	});
-	setTimeout("ajouteButton()",100);
+	setTimeout("ajouteButton()",500);
 }
 
 var timeRegarde=0;
