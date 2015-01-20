@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 	//si le video deja settings. charger les infos
 	$.ajax({
-		url: "php/settingFile.php",
+		url: "utils/settingFile.php",
 		dataType:'JSON',
 		type:"POST",
 		data:{realname:realname},

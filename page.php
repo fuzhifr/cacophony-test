@@ -19,13 +19,13 @@ if(!isset($_SESSION['user'])){
 	<script type='text/javascript'>
 		$(document).ready(function(){
 	  $.ajax({
-		url: "js/repertoire.php",
+		url: "utils/repertoire.php",
 		dataType:'JSON',
 		type:"POST",
 		data:{repertoire:""},
 		success:function(data){	
 		 var webPath=getWebPath();
-		 webPath=webPath+"/view.html?realname=";
+		 webPath=webPath+"/view.php?realname=";
 		 $(data).each(function(){
 			var html="<tr><td>"+this+"</td><td>"+webPath+this+"</td></tr>";
 			$("#table").append(html);

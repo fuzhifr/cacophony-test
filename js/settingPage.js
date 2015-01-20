@@ -94,7 +94,7 @@ function submitForm(){
 	console.log(data);
 	// envoyer tous les datas a  settings.php
 	$.ajax({
-		url: "js/settings.php",
+		url: "utils/settings.php",
 		dataType:'JSON',
 		type:"POST",
 		data:{data:dataJson,realname:realname},
