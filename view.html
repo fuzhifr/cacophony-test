@@ -1,9 +1,3 @@
-<?php
-session_start();
-if(!isset($_SESSION['user'])){
-	header('Location: index.html');
-}
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +12,7 @@ if(!isset($_SESSION['user'])){
 <script id="storyJS" type="text/javascript" src=""></script>
 <link rel="stylesheet" type="text/css" href="build/cacophony.min.css" />
 </head>
-<body>
+<body onload="checkCookie()">
 <script type="text/javascript">
 function GetRequest() {
    var url = location.search; //获取url中"?"符后的字串
@@ -110,6 +104,25 @@ function majTimeRegarde(){
 }
 function jumpTo(time){
 		cacophony.jumpToTime(time);
+}
+
+function checkCookie(){
+	var user=getCookie("username");
+    if (user == "") {
+		window.location.href='index.html';
+	 }
+	}
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 </script>
 

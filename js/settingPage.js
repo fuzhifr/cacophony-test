@@ -100,7 +100,7 @@ function submitForm(){
 		data:{data:dataJson,realname:realname},
 		success:function(data){	
 		console.log(data);
-		window.open("view.php?realname="+realname,'_blank');
+		window.open("view.html?realname="+realname,'_blank');
 		}
 	});
 	

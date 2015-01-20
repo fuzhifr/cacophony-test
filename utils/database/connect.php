@@ -9,7 +9,7 @@ else
     if(!preg_match('/^[[:alnum:]]+$/', $_POST['login']) or !preg_match('/^[[:alnum:]]+$/', $_POST['password']))
     {
         echo 'Vous devez entrer uniquement des lettres ou des chiffres <br/>';
-        echo '<a href="index.php" temp_href="index.php">Réessayer</a>';
+        echo '<a href="index.html" temp_href="index.html">Réessayer</a>';
         exit();
     }
     else
@@ -31,12 +31,12 @@ else
 			$password = base64_encode(encrypt($password, ENCRYPTION_KEY));
 			if($passwordBD==$password){
 			//c'est le bon password
-			session_start();
-			if(!isset($_SESSION['user'])){
-				$_SESSION['user']=$login;
+			
+			if(!isset($_COOKIE['username'])) {
+				setcookie("username", $login, time() + 3600, '/');
 			}
 			echo "Vous êtes connecté";
-			header('Location: ../../home.php');
+			header('Location: ../../home.html');
 			}
 			else{
 			//mauvais password

@@ -32,7 +32,7 @@ else
 		if(!isset($_SESSION['user'])){
 			$_SESSION['user']=$login;
 		}
-		header('Location: ../../home.php');
+		header('Location: ../../home.html');
     }
 }
 ?>

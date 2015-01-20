@@ -1,10 +1,4 @@
 <!DOCTYPE html>
-<?php
-session_start();
-if(!isset($_SESSION['user'])){
-	header('Location: index.html');
-}
-?>
 <html>
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -25,7 +19,7 @@ if(!isset($_SESSION['user'])){
 		data:{repertoire:""},
 		success:function(data){	
 		 var webPath=getWebPath();
-		 webPath=webPath+"/view.php?realname=";
+		 webPath=webPath+"/view.html?realname=";
 		 $(data).each(function(){
 			var html="<tr><td>"+this+"</td><td>"+webPath+this+"</td></tr>";
 			$("#table").append(html);
@@ -43,6 +37,24 @@ if(!isset($_SESSION['user'])){
         return(prePath+postPath); 
     }
 
+	function checkCookie(){
+	var user=getCookie("username");
+    if (user == "") {
+		window.location.href='index.html';
+	 }
+	}
+	function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 	</script>
 	<style>
 	body { 
@@ -55,7 +67,7 @@ if(!isset($_SESSION['user'])){
 	</style>
 </head>
 
-<body>
+<body onload="checkCookie()">
  <div class="container">
 	<div class="row">
 	  <h2>Pages créées</h2>

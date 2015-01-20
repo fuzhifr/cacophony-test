@@ -1,9 +1,3 @@
-<?php
-session_start();
-if(!isset($_SESSION['user'])){
-	header('Location: index.html');
-}
-?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -33,7 +27,7 @@ body{
 	 }
 </style>
 </head>
-<body>
+<body onload="checkCookie()">
 
 <div class="container">
     <h3>Importer un fichier </h3>
@@ -156,7 +150,7 @@ body{
                     <i class="glyphicon glyphicon-trash"></i>
                     <span>Delete</span>
                 </button>
-				<button type="button" class="btn btn-info" onclick="window.location.href='setting.php?filename={%=file.name%}'">
+				<button type="button" class="btn btn-info" onclick="window.location.href='setting.html?filename={%=file.name%}'">
                     <i class="glyphicon glyphicon-list"></i>
                     <span>Settings Videos</span>
                 </button>
