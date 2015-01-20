@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<?php
+session_start();
+if(!isset($_SESSION['user'])){
+	header('Location: index.html');
+}
+?>
 <html>
 
 <head>
@@ -13,8 +19,8 @@
     <![endif]-->
 	
 	<script src="build/jquery-1.11.1.min.js"></script>
-    <script type='text/javascript' src='js/jquery.ba-hashchange.min.js'></script>
     <script type='text/javascript' src='js/dynamicpage.js'></script>
+
 </head>
 
 <body>
@@ -27,9 +33,9 @@
 		
 		  <nav>
 		      <ul class="group">
-		          <li><a href="home.html">Accueil</a></li>
-		          <li><a href="pages.html">Pages créées</a></li>
-				  <li><a href="videoList.html">Video List</a></li>
+		          <li><a href="home.php">Accueil</a></li>
+		          <li><a href="pages.php">Pages créées</a></li>
+				  <li><a href="videoList.php">Video List</a></li>
 		      </ul>
 		  </nav>
 		</header>
@@ -37,21 +43,20 @@
 		<section id="main-content">
 		<div id="guts">
 		
-		  <h2>Accueil</h2>
-		<p>Ce site permet de créer des pages synchronisées sur des vidéos.</p>
-			<p><u>Comment faire ?</u><br>
-			Il suffit d'importer une vidéo (section Créer une nouvelle page) et d'ajouter des effets parmi ceux proposés.<br>
-			Vous pourrez alors voir votre nouvelle page telle que vous aimeriez que les autres utilisateurs la voient</p>
+		  <iframe src="page.php" width=100% height=700px>
+			<p>Your browser does not support iframes.</p>
+		</iframe>
+		
 		
 		</div>
 		</section>
 		
+		<footer>
+		  &copy;Polytech
+		</footer>
+			
 	</div>
 	
-	<footer>
-	  &copy;Polytech
-	</footer>
-
 
 </body>
 

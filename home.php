@@ -1,0 +1,64 @@
+
+<?php
+session_start();
+if(!isset($_SESSION['user'])){
+	header('Location: index.html');
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+	
+	<title>Création de pages synchronisées sur des vidéos</title>
+	
+	<link rel='stylesheet' type='text/css' href='css/styleDyn.css' />
+	
+	<!--[if IE]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	
+	<script src="build/jquery-1.11.1.min.js"></script>
+    <script type='text/javascript' src='js/jquery.ba-hashchange.min.js'></script>
+    <script type='text/javascript' src='js/dynamicpage.js'></script>
+</head>
+
+<body>
+
+
+	<div id="page-wrap">
+
+        <header>
+		  <h1>Bonjour</h1>
+		
+		  <nav>
+		      <ul class="group">
+		          <li><a href="home.php">Accueil</a></li>
+		          <li><a href="pages.php">Pages créées</a></li>
+				  <li><a href="videoList.php">Video List</a></li>
+		      </ul>
+		  </nav>
+		</header>
+		
+		<section id="main-content">
+		<div id="guts">
+		
+		  <h2>Accueil</h2>
+		<p>Ce site permet de créer des pages synchronisées sur des vidéos.</p>
+			<p><u>Comment faire ?</u><br>
+			Il suffit d'importer une vidéo (section Créer une nouvelle page) et d'ajouter des effets parmi ceux proposés.<br>
+			Vous pourrez alors voir votre nouvelle page telle que vous aimeriez que les autres utilisateurs la voient</p>
+		
+		</div>
+		</section>
+		
+	</div>
+	
+	<footer>
+	  &copy;Polytech
+	</footer>
+
+
+</body>
+
+</html>

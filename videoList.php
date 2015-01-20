@@ -1,6 +1,11 @@
+<?php
+session_start();
+if(!isset($_SESSION['user'])){
+	header('Location: index.html');
+}
+?>
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 	
@@ -13,8 +18,7 @@
     <![endif]-->
 	
 	<script src="build/jquery-1.11.1.min.js"></script>
-    <script type='text/javascript' src='js/dynamicpage.js'></script>
-
+    <script type='text/javascript' src='js/dynamicpage.js'></script>z
 </head>
 
 <body>
@@ -27,21 +31,18 @@
 		
 		  <nav>
 		      <ul class="group">
-		          <li><a href="home.html">Accueil</a></li>
-		          <li><a href="pages.html">Pages créées</a></li>
-				  <li><a href="videoList.html">Video List</a></li>
+		          <li><a href="home.php">Accueil</a></li>
+		          <li><a href="pages.php">Pages créées</a></li>
+				  <li><a href="videoList.php">Video List</a></li>
 		      </ul>
 		  </nav>
 		</header>
 		
 		<section id="main-content">
 		<div id="guts">
-		
-		  <iframe src="page.html" width=100% height=700px>
+		  <iframe src="uploadVideo.php" width=100% height=700px>
 			<p>Your browser does not support iframes.</p>
 		</iframe>
-		
-		
 		</div>
 		</section>
 		

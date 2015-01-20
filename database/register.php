@@ -28,7 +28,11 @@ else
 		
 		$insert=$bdd->prepare('INSERT INTO user(login,password) VALUES(:login,:password)');
 		$insert->execute(array('login'=>$login,'password'=>$password));
-		header('Location: ../home.html');
+		session_start();
+		if(!isset($_SESSION['user'])){
+			$_SESSION['user']=$login;
+		}
+		header('Location: ../home.php');
     }
 }
 ?>

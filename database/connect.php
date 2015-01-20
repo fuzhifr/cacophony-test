@@ -19,8 +19,6 @@ else
         $login = $_POST['login'];
         $password = $_POST['password'];
 
-		print_r($login);
-		print_r($password);
 		require('util.php');
 		define("ENCRYPTION_KEY", "=@~#;:&-");
 		
@@ -33,13 +31,17 @@ else
 			$password = base64_encode(encrypt($password, ENCRYPTION_KEY));
 			if($passwordBD==$password){
 			//c'est le bon password
+			session_start();
+			if(!isset($_SESSION['user'])){
+				$_SESSION['user']=$login;
+			}
 			echo "Vous êtes connecté";
-			//header('Location: ../home.html');
+			header('Location: ../home.php');
 			}
 			else{
 			//mauvais password
 			echo "Erreur de mot de passe, veuillez le retaper";
-			//header('Location: ../loginForm.html');
+			header('Location: ../loginForm.html');
 			}
 		}
 		else{

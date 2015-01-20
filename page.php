@@ -1,6 +1,11 @@
 <!DOCTYPE html>
+<?php
+session_start();
+if(!isset($_SESSION['user'])){
+	header('Location: index.html');
+}
+?>
 <html>
-
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 	
