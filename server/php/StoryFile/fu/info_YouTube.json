@@ -1,1 +1,1 @@
-{"qcm":{"rows":[]},"button":{"rows":[]},"inputText":{"rows":[]},"text":{"rows":[{"id":"1","time":"2","msg":"message"}]}}
+{"qcm":{"rows":[]},"button":{"rows":[]},"inputText":{"rows":[]},"text":{"rows":[{"id":"1","begin":"3","end":"7","msg":"message"}]}}

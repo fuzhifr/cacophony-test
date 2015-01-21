@@ -1,4 +1,4 @@
 _s[0] = [
 	{a:'bg_fade_in'}];
-_s[2]=[{a:'lyrics', d:{txt:"message",x: 100, y: 100,
-	 colour:'rgba(0, 0, 0, 1)' }}];
+_s[3]=[{a:'html', d:{html:"<h2>message</h2>",top: 100, left: 100}}];
+_s[7]=[{a:'clear_html'}];
