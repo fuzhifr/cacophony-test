@@ -10,6 +10,7 @@
  */
 
 /* global $, window */
+var user=getCookie("username");
 
 $(function () {
     'use strict';

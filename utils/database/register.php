@@ -28,10 +28,9 @@ else
 		
 		$insert=$bdd->prepare('INSERT INTO user(login,password) VALUES(:login,:password)');
 		$insert->execute(array('login'=>$login,'password'=>$password));
-		session_start();
-		if(!isset($_SESSION['user'])){
-			$_SESSION['user']=$login;
-		}
+		
+		setcookie("username", $login, time() + 3600, '/');
+		
 		header('Location: ../../home.html');
     }
 }

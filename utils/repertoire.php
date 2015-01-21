@@ -1,5 +1,6 @@
 <?php
-	$current_dir = '../js/StoryFile/';
+	$username=$_COOKIE['username'];
+	$current_dir = '../server/php/StoryFile/'.$username.'/';
 	$dir = opendir($current_dir);
 	$fileList=array();
 	while(false !== ($file=readdir($dir))){

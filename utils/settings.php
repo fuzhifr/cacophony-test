@@ -4,15 +4,19 @@
 // in a text file like this on a real site!
 
 $realname=$_POST["realname"];
-
-$filename='../js/StoryFile/'.$realname.'.js';
+$username=$_COOKIE['username'];
+$filename='../server/php/StoryFile/'.$username.'/'.$realname.'.js';
+$fileDir='../server/php/StoryFile/'.$username;
+if(!file_exists($fileDir)){
+	mkdir($fileDir);
+}
 $fp= fopen ($filename, 'w');
 fwrite ($fp, "_s[0] = [
 	{a:'bg_fade_in'}];");
 fclose ($fp);
 
 $data=$_POST["data"];
-$file='StoryFile/info_'.$realname.'.json';
+$file='../server/php/StoryFile/'.$username.'/info_'.$realname.'.json';
 $fb= fopen ($file, 'w');
 fwrite ($fb, $data);
 fclose ($fb);

@@ -12,7 +12,7 @@
 <script id="storyJS" type="text/javascript" src=""></script>
 <link rel="stylesheet" type="text/css" href="build/cacophony.min.css" />
 </head>
-<body onload="checkCookie()">
+<body>
 <script type="text/javascript">
 function GetRequest() {
    var url = location.search; //获取url中"?"符后的字串
@@ -30,12 +30,13 @@ function GetRequest() {
 	var Request = new Object();
 	Request = GetRequest();
 	var realname=Request['realname'];
-	var storyFile='js/StoryFile/'+realname+'.js';
+	var username=Request['username'];
+	var storyFile='server/php/StoryFile/'+username+'/'+realname+'.js';
 	
 
 $(document).ready (function () {
     // chaque fois, on regarde le fichier buttoninfo pour créer les buttons automatiquement
-	var urlJSON='js/StoryFile/Info_'+realname+'.json';
+	var urlJSON='server/php/StoryFile/'+username+'/Info_'+realname+'.json';
 	$.getJSON(urlJSON,function(data){
 		var len=data.button.rows.length;
 		var nChapitre=0;
@@ -57,9 +58,9 @@ $(document).ready (function () {
 	// with the different browsers at this time.
 	loadJS('storyJS',storyFile);
 	cacophony.setVideo (
-		'server/php/files/'+realname+'.mp4',
-		'server/php/files/'+realname+'.webm',
-		'server/php/files/'+realname+'.ogv'
+		'server/php/files/'+username+'/'+realname+'.mp4',
+		'server/php/files/'+username+'/'+realname+'.webm',
+		'server/php/files/'+username+'/'+realname+'.ogv'
 	);
 
 	cacophony.init ();
@@ -69,7 +70,7 @@ $(document).ready (function () {
 });
 
  function ajouteButton(){
- 	var urlJSON='js/StoryFile/Info_'+realname+'.json';
+ 	var urlJSON='server/php/StoryFile/'+username+'/Info_'+realname+'.json';
      $.getJSON(urlJSON,function(data){
 		var len=data.button.rows.length;
 		if(len!=0){
@@ -106,24 +107,6 @@ function jumpTo(time){
 		cacophony.jumpToTime(time);
 }
 
-function checkCookie(){
-	var user=getCookie("username");
-    if (user == "") {
-		window.location.href='index.html';
-	 }
-	}
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
 </script>
 
 <style type="text/css">
