@@ -35,7 +35,6 @@ fclose ($fp);
 
 function writeText($text,$fp){
 	$textRows=$text->rows;
-
 	foreach($textRows as $row){
 	 $write="_s[".$row->begin."]=[{a:'html', d:{html:\"<h2>";
 	 $write.=$row->msg."</h2>\",top:".$row->y.", left:".$row->x." }}];\n";

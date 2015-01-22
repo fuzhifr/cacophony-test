@@ -241,8 +241,8 @@ function AddText(row){
 									+"<td><input class='form-control' min=1 type='number' name='beginText"+nText+"' id='beginText"+nText+"'  value='"+timeValue+"' required></td>"
 									+"<td><input class='form-control' min=1 type='number' name='endText"+nText+"' id='endText"+nText+"'  value='"+endValue+"' required></td>"
 									+"<td><input class='form-control' type='text' name='msgText"+nText+"' id='msgText"+nText+"' size=50 value='"+msgText+"' required></td>"	
-									+"<td><input class='form-control' type='text' name='xText"+nText+"' id='xText"+nText+"'  value='"+x+"' required></td>"
-									+"<td><input class='form-control' type='text' name='yText"+nText+"' id='yText"+nText+"'  value='"+y+"' required></td>"									
+									+"<td><input class='form-control' min=0 type='number' name='xText"+nText+"' id='xText"+nText+"'  value='"+x+"' required></td>"
+									+"<td><input class='form-control' min=0 type='number' name='yText"+nText+"' id='yText"+nText+"'  value='"+y+"' required></td>"									
 							+"</tr>"); 		
 }
 
