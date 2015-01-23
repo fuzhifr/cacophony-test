@@ -50,7 +50,7 @@ $(document).ready(function(){
 			for(var i=0;i<text.rows.length;i++){
 					AddText(text.rows[i]);
 			}
-			$("#inputDiv").html("<button class='btn' type='submit'>Envoyer</button>");
+			$("#inputDiv").html("<button class='btn' type='submit'>Enregistrer</button>");
 		}
 	  }
 	});
@@ -99,7 +99,7 @@ var checkValue=$("#select_option").val();
 
 //submit le table pour creer une activite
 function submitButton(type){
-	$("#inputDiv").html("<button class='btn' type='submit'>Submit</button>");
+	$("#inputDiv").html("<button class='btn' type='submit'>Enregistrer</button>");
 	if(type=="text"){
 		AddText("");
 	}else if(type=="chapitre"){

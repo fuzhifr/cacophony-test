@@ -25,7 +25,7 @@
 		 $(data).each(function(){
 			var html="<tr><td>"+this+"</td>"
 					+"<td>"+webPath+this+"</td>"
-					+"<td> <button class='btn' onclick=\"downloadFile('"+this+"')\">Download</button></td></tr>";
+					+"<td> <button class='btn' onclick=\"downloadFile('"+this+"')\">Télécharger</button></td></tr>";
 			$("#table").append(html);
 		 });
 		}
@@ -35,7 +35,7 @@
 	function downloadFile(realname){
 		$.get("utils/downfile.php?realname="+realname+"&username="+username,function(data,status){
 			if(data=="false"){	
-			   alert("il n'exites pas le fichier");
+			   alert("Il n'y a pas de saisie de texte pour cette vidéo");
 			}else{
 				window.location="utils/downfile.php?realname="+realname+"&username="+username;
 			}	
@@ -87,9 +87,9 @@
 	  <div>
 		<table class="table" id="table">
 		<tr>
-			<th>Nom de video</th>
-			<th>lien de video</th>
-			<th>download Resultat inputText</th>
+			<th>Nom de la vidéo</th>
+			<th>Lien vers la vidéo</th>
+			<th>Saisies de texte (csv)</th>
 		<tr>
 		</table>
 	  </div>

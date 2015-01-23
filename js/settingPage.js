@@ -24,19 +24,19 @@ function textfunction(){
 								+"<td><input class='form-control' min=0 type='number' name='xText' id='xText'  required></td>"		
 								+"<td><input class='form-control' min=0 type='number' name='yText' id='yText'  required></td>"
 						+"</tr>");  
- $("#submitButton").html("<button class='btn' onclick=\"submitButton('text');\">Envoyer</button>");
+ $("#submitButton").html("<button class='btn' onclick=\"submitButton('text');\">Enregistrer</button>");
 }
 
 //creer une champ pour entrer les infos de Chapitre
 function chapitrefunction(){
  var myVid=document.getElementById("myVideo_html5_api");
  var time=Math.round(myVid.currentTime);
- $("#tableInput").html("<tr><th>time</th><th>introduction</th></tr>")
+ $("#tableInput").html("<tr><th>Temps</th><th>Intitulé</th></tr>")
  $("#tableInput").append("<tr align='center'>"
                                 +"<td><input class='form-control' min=1 type='number' name='timeChapitre' id='timeChapitre' size='5' value='"+time+"'/></td>"
 								+"<td><input class='form-control' type='text' name='msgChapitre' id='msgChapitre' /></td>"	
 						+"</tr>");  
- $("#submitButton").html("<button class='btn' onclick=\"submitButton('chapitre');\">Envoyer</button>");
+ $("#submitButton").html("<button class='btn' onclick=\"submitButton('chapitre');\">Enregistrer</button>");
 }
 
 
@@ -51,7 +51,7 @@ function inputTextfunction(){
 								+"<td><input class='form-control' min=0 type='number' name='xinputText' id='xinputText'  required></td>"		
 								+"<td><input class='form-control' min=0 type='number' name='yinputText' id='yinputText'  required></td>"
 						+"</tr>");  
- $("#submitButton").html("<button class='btn' onclick=\"submitButton('inputText');\">Envoyer</button>");
+ $("#submitButton").html("<button class='btn' onclick=\"submitButton('inputText');\">Enregistrer</button>");
 }
 
 //creer une champ pour entrer les infos de Button
@@ -64,7 +64,7 @@ function jumpfunction(){
 								+"<td><input class='form-control' min=1 type='number' name='jumpToButton' id='jumpToButton' size='5' /></td>"
 								+"<td><input class='form-control' type='text' name='label' id='label' /></td>"	
 						+"</tr>");  
- $("#submitButton").html("<button class='btn' onclick=\"submitButton('jump');\">Envoyer</button>");
+ $("#submitButton").html("<button class='btn' onclick=\"submitButton('jump');\">Enregistrer</button>");
 }
 
 //creer une champ pour entrer les infos de QCM
@@ -78,7 +78,7 @@ function qcmfunction(){
 								+"<td><input class='form-control' type='text' name='optionQ"+nbOptions+"' id='optionQ"+nbOptions+"' /></td>"
 								+"<td><input class='form-control' type='text' name='jumpToQ"+nbOptions+"' id='jumpToQ"+nbOptions+"' placeholder='url ou temps' /></td>"						
 						+"</tr>");  
- $("#submitButton").html("<button class='btn' onclick=\"AddOption();\">Ajouter une réponse</button>&nbsp;&nbsp;&nbsp;<button class='btn' onclick=\"submitButton('qcm');\">Envoyer</button>");
+ $("#submitButton").html("<button class='btn' onclick=\"AddOption();\">Ajouter une réponse</button>&nbsp;&nbsp;&nbsp;<button class='btn' onclick=\"submitButton('qcm');\">Enregistrer</button>");
 }
 
 // function submit les datas
@@ -97,7 +97,7 @@ function submitForm(){
 	dataJson=JSON.stringify(data);
 	console.log(data);
 	var username=getCookie('username');
-	// envoyer tous les datas a  settings.php
+	// Enregistrer tous les datas a  settings.php
 	$.ajax({
 		url: "utils/settings.php",
 		dataType:'JSON',
@@ -126,6 +126,11 @@ function getCookie(cname) {
 }
 
 function getText(){
+	var xmyVid=document.getElementById("myVideo_html5_api").getAttribute("width");
+	//ratio taille lecteur cacophony/taille lecteur html5
+	var xratio=854/600;
+	//alert(xratio);
+	var yratio=480/400;
 	var textData={};
 	var rows=[];
 	
@@ -212,14 +217,14 @@ var nChapitre=0;
 //ajouter un text
 function AddText(row){
 	if(nText==0){
-		$("#titreText").html("<h3>Text</h3>");
+		$("#titreText").html("<h3>Texte</h3>");
 		$("#textTable").html("<tr>"
 								+"<th>*</th>"
 								+"<th>Début</th>"
 								+"<th>Fin</th>"
 								+"<th>Message</th>"
-								+"<th>X</th>"
-								+"<th>Y</th>"
+								+"<th>x</th>"
+								+"<th>y</th>"
 							+"</tr>");
 		$("#btnText").html("<input name='' class='btn' type='button' value='Supprimer le texte' onClick='deleteText()' />");
 	} 
@@ -272,8 +277,8 @@ function AddChapitre(row){
 			$("#titreChapitre").html("<h3>Chapitre</h3>");
 			$("#chapitreTable").html("<tr>"
 									+"<th>*</th>"
-									+"<th>time</th>"
-									+"<th>introduction</th>"
+									+"<th>Temps</th>"
+									+"<th>Intitulé</th>"
 								+"</tr>");
 			$("#btnChapitre").html("<input class='btn' name='' type='button' value='Supprimer le chapitre' onClick='deleteChapitre()' />");
 	} 
@@ -313,7 +318,7 @@ function deleteChapitre(){
 // ajouter un input text
 function AddInputText(row){ 
 	if(nInputText==0){
-			$("#titreInputText").html("<h3>Input Text</h3>");
+			$("#titreInputText").html("<h3>Saisie de texte</h3>");
 			$("#inputTable").html("<tr>"
 									+"<th>*</th>"
 									+"<th>Temps</th>"
@@ -365,7 +370,7 @@ function deleteInputText(){
 // ajouter un jump button
 function AddJumpTo(row){ 
 	if(nJump==0){
-		$("#titreButton").html("<h3>Button</h3>");
+		$("#titreButton").html("<h3>Bouton aller à</h3>");
 		$("#buttonTable").html("<tr>"
 								+"<th>*</th>"
 								+"<th>Temps</th>"
