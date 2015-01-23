@@ -249,8 +249,8 @@ function AddText(row){
 		var timeValue=row.begin;
 		var endValue=row.end;
 		var msgText=row.msg;
-		var x=row.x;
-		var y=row.y;
+		var x=row.x*600/854;
+		var y=row.y*400/480;
 	}
 	  $("#textTable").append("<tr id="+nText+" class='text' align='center'>"
 									+"<td><input type='checkbox' name='text'/></td>"
@@ -347,8 +347,8 @@ function AddInputText(row){
 	}else{
 		var timeValue=row.time;
 		var msgValue=row.msg;
-		var x=row.x;
-		var y=row.y;
+		var x=row.x*600/854;
+		var y=row.y*400/480;
 	}
   $("#inputTable").append("<tr id="+nInputText+" class='inputText' align='center'>"
                                 +"<td><input type='checkbox' name='inputText'/></td>"
