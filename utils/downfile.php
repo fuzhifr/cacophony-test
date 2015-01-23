@@ -19,7 +19,6 @@ fclose($fileD);
 
 $username=$_GET['username'];
 $realname=$_GET['realname'];
-
 $dir = "../server/php/inputTextResultat/".$username."/".$realname."/";
 if (is_dir($dir)){
   if ($dh = opendir($dir)){
@@ -27,11 +26,10 @@ if (is_dir($dir)){
 	if($file != "." && $file != ".."){
 		  $url=$dir.$file;
 		  downfile($url,$file,$realname);
+
 	  }
     }
     closedir($dh);
   }
-}else{
-	echo "false";
 }
 ?>
