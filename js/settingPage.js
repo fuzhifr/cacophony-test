@@ -21,8 +21,8 @@ function textfunction(){
 								+"<td><input class='form-control' min=1 type='number' name='begin' id='begin'  value='"+time+"' required></td>"
                                 +"<td><input class='form-control' min=1 type='number' name='end' id='end'  required></td>"
 								+"<td><input class='form-control' type='text' name='msgText' id='msgText' size=50 required></td>"
-								+"<td><input class='form-control' min=0 type='number' name='xText' id='xText'  required></td>"		
-								+"<td><input class='form-control' min=0 type='number' name='yText' id='yText'  required></td>"
+								+"<td><input class='form-control' min=0 type='number' name='xText' id='xText' value=300  required></td>"		
+								+"<td><input class='form-control' min=0 type='number' name='yText' id='yText' value=200 required></td>"
 						+"</tr>");  
  $("#submitButton").html("<button class='btn' onclick=\"submitButton('text');\">Enregistrer</button>");
 }
@@ -48,8 +48,8 @@ function inputTextfunction(){
  $("#tableInput").append("<tr align='center'>"
                                 +"<td><input class='form-control' min=1 type='number' name='timeInput' id='timeInput' size='5' value='"+time+"'/></td>"
 								+"<td><input class='form-control' type='text' name='msgInput' id='msgInput' size=60 /></td>"	
-								+"<td><input class='form-control' min=0 type='number' name='xinputText' id='xinputText'  required></td>"		
-								+"<td><input class='form-control' min=0 type='number' name='yinputText' id='yinputText'  required></td>"
+								+"<td><input class='form-control' min=0 type='number' name='xinputText' id='xinputText' value=300  required></td>"		
+								+"<td><input class='form-control' min=0 type='number' name='yinputText' id='yinputText' value=200 required></td>"
 						+"</tr>");  
  $("#submitButton").html("<button class='btn' onclick=\"submitButton('inputText');\">Enregistrer</button>");
 }
@@ -333,8 +333,8 @@ function AddInputText(row){
 									+"<th>*</th>"
 									+"<th>Temps</th>"
 									+"<th>Intitulé</th>"
-									+"<th>x</th>"
-									+"<th>y</th>"
+									+"<th>X</th>"
+									+"<th>Y</th>"
 								+"</tr>");
 			$("#btnInputText").html("<input class='btn' type='button' value='Supprimer la saisie de texte' onClick='deleteInputText()' />");
 	} 
