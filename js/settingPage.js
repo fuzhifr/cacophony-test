@@ -127,17 +127,20 @@ function getCookie(cname) {
 
 function getText(){
 	var xmyVid=document.getElementById("myVideo_html5_api").getAttribute("width");
-	//ratio taille lecteur cacophony/taille lecteur html5
-	var xratio=854/600;
-	//alert(xratio);
-	var yratio=480/400;
+
 	var textData={};
 	var rows=[];
 	
 	var textTable=$("tr.text");
 	$(textTable).each(function(){
 		var i=$(this).attr("id");
-		rows.push({"id":i,"begin":$("input[id='beginText"+i+"']").val(),"end":$("input[id='endText"+i+"']").val(),"msg":$("input[id='msgText"+i+"']").val(),"x":$("input[id='xText"+i+"']").val(),"y":$("input[id='yText"+i+"']").val()});
+		//ratio taille lecteur cacophony/taille lecteur html5
+		var xratio=854/600;
+		//alert(xratio);
+		var yratio=480/400;
+		var x=$("input[id='xText"+i+"']").val()*xratio;
+		var y=$("input[id='yText"+i+"']").val()*yratio;
+		rows.push({"id":i,"begin":$("input[id='beginText"+i+"']").val(),"end":$("input[id='endText"+i+"']").val(),"msg":$("input[id='msgText"+i+"']").val(),"x":x,"y":y});
 	});
 	textData.rows=rows;
 	return textData;
@@ -190,10 +193,17 @@ function getInputText(){
 	var inputTextData={};
 	var rows=[];
 	
+	
 	var inputTable=$("tr.inputText");
 	$(inputTable).each(function(){
 		var i=$(this).attr("id");
-		rows.push({"id":i,"time":$("input[id='time"+i+"']").val(),"msg":$("input[id='msg"+i+"']").val(),"x":$("input[id='xinputText"+i+"']").val(),"y":$("input[id='yinputText"+i+"']").val()});
+		//ratio taille lecteur cacophony/taille lecteur html5
+		var xratio=854/600;
+		//alert(xratio);
+		var yratio=480/400;
+		var x=$("input[id='xinputText"+i+"']").val()*xratio;
+		var y=$("input[id='yinputText"+i+"']").val()*yratio;
+		rows.push({"id":i,"time":$("input[id='time"+i+"']").val(),"msg":$("input[id='msg"+i+"']").val(),"x":x,"y":y});
 	});
 	inputTextData.rows=rows;
 	return inputTextData;
@@ -332,7 +342,7 @@ function AddInputText(row){
 	if(row==""){
 		var timeValue=$("input[id='timeInput']").val();
 		var msgValue=$("input[id='msgInput']").val();
-		var x=$("input[id='xinputTextnput']").val();
+		var x=$("input[id='xinputText']").val();
 		var y=$("input[id='yinputText']").val();
 	}else{
 		var timeValue=row.time;
