@@ -44,10 +44,12 @@ function chapitrefunction(){
 function inputTextfunction(){
  var myVid=document.getElementById("myVideo_html5_api");
  var time=Math.round(myVid.currentTime);
- $("#tableInput").html("<tr><th>Temps</th><th>Intitulé</th></tr>")
+ $("#tableInput").html("<tr><th>Temps</th><th>Intitulé</th><th>X</th><th>Y</th></tr>")
  $("#tableInput").append("<tr align='center'>"
                                 +"<td><input class='form-control' min=1 type='number' name='timeInput' id='timeInput' size='5' value='"+time+"'/></td>"
 								+"<td><input class='form-control' type='text' name='msgInput' id='msgInput' size=60 /></td>"	
+								+"<td><input class='form-control' min=0 type='number' name='xinputText' id='xinputText'  required></td>"		
+								+"<td><input class='form-control' min=0 type='number' name='yinputText' id='yinputText'  required></td>"
 						+"</tr>");  
  $("#submitButton").html("<button class='btn' onclick=\"submitButton('inputText');\">Envoyer</button>");
 }
@@ -186,7 +188,7 @@ function getInputText(){
 	var inputTable=$("tr.inputText");
 	$(inputTable).each(function(){
 		var i=$(this).attr("id");
-		rows.push({"id":i,"time":$("input[id='time"+i+"']").val(),"msg":$("input[id='msg"+i+"']").val()});
+		rows.push({"id":i,"time":$("input[id='time"+i+"']").val(),"msg":$("input[id='msg"+i+"']").val(),"x":$("input[id='xinputText"+i+"']").val(),"y":$("input[id='yinputText"+i+"']").val()});
 	});
 	inputTextData.rows=rows;
 	return inputTextData;
@@ -316,6 +318,8 @@ function AddInputText(row){
 									+"<th>*</th>"
 									+"<th>Temps</th>"
 									+"<th>Intitulé</th>"
+									+"<th>X</th>"
+									+"<th>Y</th>"
 								+"</tr>");
 			$("#btnInputText").html("<input class='btn' type='button' value='Supprimer la saisie de texte' onClick='deleteInputText()' />");
 	} 
@@ -323,14 +327,20 @@ function AddInputText(row){
 	if(row==""){
 		var timeValue=$("input[id='timeInput']").val();
 		var msgValue=$("input[id='msgInput']").val();
+		var x=$("input[id='xinputTextnput']").val();
+		var y=$("input[id='yinputText']").val();
 	}else{
 		var timeValue=row.time;
 		var msgValue=row.msg;
+		var x=row.x;
+		var y=row.y;
 	}
   $("#inputTable").append("<tr id="+nInputText+" class='inputText' align='center'>"
                                 +"<td><input type='checkbox' name='inputText'/></td>"
                                 +"<td><input class='form-control' min=1 type='number' name='time"+nInputText+"' id='time"+nInputText+"' value='"+timeValue+"' size='5' required></td>"
 								+"<td><input class='form-control' size=60 type='text' name='msg"+nInputText+"' id='msg"+nInputText+"' value='"+msgValue+"' required></td>"							
+								+"<td><input class='form-control' min=0 type='number' name='xinputText"+nInputText+"' id='xinputText"+nInputText+"' value='"+x+"' required></td>"		
+								+"<td><input class='form-control' min=0 type='number' name='yinputText"+nInputText+"' id='yinputText"+nInputText+"' value='"+y+"' required></td>"
 						+"</tr>");     
 } 
 
