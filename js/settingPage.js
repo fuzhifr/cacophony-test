@@ -48,8 +48,8 @@ function inputTextfunction(){
  $("#tableInput").append("<tr align='center'>"
                                 +"<td><input class='form-control' min=1 type='number' name='timeInput' id='timeInput' size='5' value='"+time+"'/></td>"
 								+"<td><input class='form-control' type='text' name='msgInput' id='msgInput' size=60 /></td>"	
-								+"<td><input class='form-control' min=0 type='number' name='xinputText' id='xinputText' value=300  required></td>"		
-								+"<td><input class='form-control' min=0 type='number' name='yinputText' id='yinputText' value=200 required></td>"
+								+"<td><input class='form-control' min=0 type='number' name='xinputText' id='xinputText' value=100  required></td>"		
+								+"<td><input class='form-control' min=0 type='number' name='yinputText' id='yinputText' value=100 required></td>"
 						+"</tr>");  
  $("#submitButton").html("<button class='btn' onclick=\"submitButton('inputText');\">Enregistrer</button>");
 }
