@@ -77,7 +77,7 @@ $(function () {
 function checkCookie(){
 	var user=getCookie("username");
     if (user == "") {
-		window.location.href='index.html';
+		window.parent.location.href='index.html';
 	}
 }
 function getCookie(cname) {
