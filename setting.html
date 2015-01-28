@@ -65,7 +65,7 @@ $(document).ready(function(){
 	$("#myVideo").mousemove(function(e){
 	var Y = e.pageY-$('#myVideo').offset().top; 
 	var X = e.pageX-$('#myVideo').offset().left; 
-    $("span").text(" x : "+X+", y : " + Y);
+    $("span").text(" x : "+Math.round(X)+", y : " + Math.round(Y));
   });
 });
 
