@@ -50,7 +50,7 @@ $inputTextRows=$inputText->rows;
 	foreach($inputTextRows as $row){
 	 $write="_s[".$row->time."]=[{a:'input_text_lp', d:{msg:\"";
 	 $write.=$row->msg;
-	 $write.="\",thanks:\"Thanks for your input\",
+	 $write.="\",thanks:\"Merci pour votre saisie\",
 		save_to: 'utils/save_input.php?questionName=".$row->msg."&username=".$username."&realname=".$realname."',top:".$row->x.",left:".$row->y."}},{a:'pause'}]; \n";
 	 fwrite ($fp,$write);
 	}
