@@ -23,8 +23,9 @@
 		 var webPath=getWebPath();
 		 webPath=webPath+"view.html?username="+username+"&realname=";
 		 $(data).each(function(){
+		  alert(this.realname.replace(/\s+/g,'%20'));
 			var html="<tr><td>"+this.realname+"</td>"
-					+"<td>"+webPath+this.realname+"</td>";
+					+"<td>"+webPath+this.realname.replace(/\s+/g,'%20')+"</td>";
 					if(this.isExist=="true"){
 						html+="<td> <button class='btn' onclick=\"downloadFile('"+this.realname+"')\">Télécharger</button></td></tr>";
 					}else{
